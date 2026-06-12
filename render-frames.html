@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>CK — cinematic frame renderer (dev tool)</title>
+<style>
+  body { background: #0a0f1e; color: #e2e8f0; font-family: monospace; margin: 20px; }
+  canvas { border: 1px solid #334; max-width: 100%; height: auto; }
+  #status { margin: 12px 0; font-size: 14px; }
+</style>
+</head>
+<body>
+<!-- Dev tool: renders the scroll-cinematic frame sequence and POSTs each
+     frame to serve.ps1 (/save). Not linked from the site. -->
+<div id="status">loading three.js…</div>
+<canvas id="c" width="1600" height="900"></canvas>
+
+<script type="module">
+import * as THREE from "https://cdn.jsdelivr.net/npm/three@0.165.0/build/three.module.js";
+
+const FRAMES = 180;
+const CYAN = 0x38bdf8, INDIGO = 0x818cf8, SLATE = 0x64748b, BLUE = 0x60a5fa;
+const status = document.getElementById("status");
+const canvas = document.getElementById("c");
+
+const renderer = new THREE.WebGLRenderer({ canvas, antialias: true, preserveDrawingBuffer: true });
+renderer.setPixelRatio(1);
+
+const scene = new THREE.Scene();
+scene.background = new THREE.Color(0x0a0f1e);
+scene.fog = new THREE.Fog(0x0a0f1e, 10, 36);
+
+const camera = new THREE.PerspectiveCamera(42, 16 / 9, 0.1, 100);
+
+// ---------- helpers ----------
+function lineMat(color, opacity) {
+  return new THREE.LineBasicMaterial({ color, transparent: true, opacity });
+}
+function edges(geom, color, opacity) {
+  return new THREE.LineSegments(new THREE.EdgesGeometry(geom, 12), lineMat(color, opacity));
+}
+function polyline(points, color, opacity) {
+  const g = new THREE.BufferGeometry().setFromPoints(points.map(p => new THREE.Vector3(...p)));
+  return new THREE.Line(g, lineMat(color, opacity));
+}
+// deterministic pseudo-random (no Math.random — frames must be reproducible)
+function rand(seed) {
+  const x = Math.sin(seed * 127.1 + 311.7) * 43758.5453;
+  return x - Math.floor(x);
+}
+const easeOut = (k) => 1 - Math.pow(1 - k, 3);
+const smooth = (k) => k * k * (3 - 2 * k);
+const clamp01 = (v) => Math.max(0, Math.min(1, v));
+
+// ---------- ground grid ----------
+const grid = new THREE.Group();
+{
+  const EXT = 30, STEP = 1;
+  for (let i = -EXT; i <= EXT; i += STEP) {
+    grid.add(polyline([[-EXT, 0, i], [EXT, 0, i]], CYAN, 0.06));
+    grid.add(polyline([[i, 0, -EXT], [i, 0, EXT]], CYAN, 0.06));
+  }
+}
+scene.add(grid);
+
+// ---------- the CK seed cube (centerpiece) ----------
+const ckCube = new THREE.Group();
+{
+  const R = 1.0;
+  // hexagonal wireframe cube like the logo, in 3D: a real cube rotated to isometric reads
+  // better as actual geometry — use a box + highlighted edges for the C and K strokes
+  ckCube.add(edges(new THREE.BoxGeometry(R, R, R), SLATE, 0.5));
+  const h = R / 2;
+  // C: left bracket over three left edges
+  ckCube.add(polyline([[ -h, h, h], [-h, h, -h], [-h, -h, -h], [-h, -h, h]], CYAN, 1));
+  // K: vertical spine + diagonals on the front face
+  ckCube.add(polyline([[0, h, h], [0, -h, h]], BLUE, 1));
+  ckCube.add(polyline([[0, 0, h], [h, h, h]], INDIGO, 1));
+  ckCube.add(polyline([[0, 0, h], [h, -h, h]], INDIGO, 1));
+  ckCube.position.y = 1.5;
+}
+scene.add(ckCube);
+
+// ---------- city of towers (radially staggered assembly) ----------
+const towers = [];
+{
+  let n = 0;
+  for (let gx = -9; gx <= 9; gx += 2) {
+    for (let gz = -9; gz <= 9; gz += 2) {
+      const dist = Math.hypot(gx, gz);
+      if (dist < 2.4) continue;                       // keep the centre clear for the cube
+      if (rand(n * 7 + 1) < 0.32) { n++; continue; }  // thin the grid out organically
+      const h = 0.6 + rand(n * 13 + 2) * 3.2;
+      const w = 0.55 + rand(n * 17 + 3) * 0.5;
+      const colorPick = rand(n * 23 + 4);
+      const color = colorPick < 0.5 ? SLATE : (colorPick < 0.8 ? CYAN : INDIGO);
+      const tower = edges(new THREE.BoxGeometry(w, h, w), color, colorPick < 0.5 ? 0.35 : 0.6);
+      tower.position.set(gx + (rand(n * 29 + 5) - 0.5) * 0.7, 0, gz + (rand(n * 31 + 6) - 0.5) * 0.7);
+      // growth window staggered by distance from the cube
+      tower.userData = { h, start: 0.06 + (dist / 13) * 0.45 + rand(n * 37 + 7) * 0.08, dur: 0.16 };
+      scene.add(tower);
+      towers.push(tower);
+      n++;
+    }
+  }
+}
+
+// ---------- special structures ----------
+// terminal arcs (far left)
+const terminal = new THREE.Group();
+{
+  for (let i = -3; i <= 3; i++) {
+    const r = 1.5 - Math.abs(i) * 0.11;
+    const pts = [];
+    for (let s = 0; s <= 20; s++) {
+      const a = (Math.PI * s) / 20;
+      pts.push([r * Math.cos(a), r * Math.sin(a), i * 0.5]);
+    }
+    terminal.add(polyline(pts, i % 2 ? CYAN : INDIGO, 0.7));
+  }
+  terminal.position.set(-7.5, 0, 3.5);
+  terminal.rotation.y = 0.5;
+  terminal.userData = { start: 0.34, dur: 0.2 };
+}
+scene.add(terminal);
+
+// viaduct line (crossing behind the city)
+const viaduct = new THREE.Group();
+{
+  viaduct.add(polyline([[-14, 1.15, 0], [14, 1.15, 0]], CYAN, 0.75));
+  viaduct.add(polyline([[-14, 1.05, 0], [14, 1.05, 0]], INDIGO, 0.5));
+  for (let x = -13; x <= 13; x += 1.6) {
+    viaduct.add(polyline([[x, 0, 0], [x, 1.05, 0]], SLATE, 0.5));
+  }
+  viaduct.position.set(0, 0, -9.5);
+  viaduct.userData = { start: 0.5, dur: 0.2 };
+}
+scene.add(viaduct);
+
+// ---------- floating data points ----------
+const points = (() => {
+  const N = 320, pos = new Float32Array(N * 3);
+  for (let i = 0; i < N; i++) {
+    pos[i * 3] = (rand(i * 3 + 50) - 0.5) * 26;
+    pos[i * 3 + 1] = 0.3 + rand(i * 3 + 51) * 7;
+    pos[i * 3 + 2] = (rand(i * 3 + 52) - 0.5) * 26;
+  }
+  const g = new THREE.BufferGeometry();
+  g.setAttribute("position", new THREE.BufferAttribute(pos, 3));
+  const p = new THREE.Points(g, new THREE.PointsMaterial({ color: CYAN, size: 0.045, transparent: true, opacity: 0.5 }));
+  scene.add(p);
+  return p;
+})();
+
+// ---------- camera path (quadratic bezier through 3 keys) ----------
+const CAM = [
+  { pos: [1.6, 1.4, 5.2],  look: [0, 1.4, 0] },   // close on the cube
+  { pos: [6.5, 2.6, 4.0],  look: [0, 1.2, 0] },   // sweeping orbit through the towers
+  { pos: [0.0, 9.5, 17.0], look: [0, 1.2, 0] },   // high wide skyline reveal
+];
+function bezier3(a, b, c, k) {
+  const u = 1 - k;
+  return a * u * u + b * 2 * u * k + c * k * k;
+}
+
+// ---------- deterministic frame state ----------
+function setFrame(t) {
+  const k = smooth(t);
+  camera.position.set(
+    bezier3(CAM[0].pos[0], CAM[1].pos[0], CAM[2].pos[0], k),
+    bezier3(CAM[0].pos[1], CAM[1].pos[1], CAM[2].pos[1], k),
+    bezier3(CAM[0].pos[2], CAM[1].pos[2], CAM[2].pos[2], k)
+  );
+  camera.lookAt(
+    bezier3(CAM[0].look[0], CAM[1].look[0], CAM[2].look[0], k),
+    bezier3(CAM[0].look[1], CAM[1].look[1], CAM[2].look[1], k),
+    bezier3(CAM[0].look[2], CAM[1].look[2], CAM[2].look[2], k)
+  );
+
+  // cube: scales in immediately, rotates slowly throughout
+  const cs = easeOut(clamp01(t / 0.07));
+  ckCube.scale.setScalar(Math.max(cs, 0.0001));
+  ckCube.rotation.y = 0.6 + t * 2.4;
+
+  // towers grow in their stagger windows
+  for (const tw of towers) {
+    const g = easeOut(clamp01((t - tw.userData.start) / tw.userData.dur));
+    tw.scale.y = Math.max(g, 0.0001);
+    tw.position.y = (tw.userData.h * tw.scale.y) / 2;
+    tw.visible = g > 0.001;
+  }
+  // specials grow
+  for (const sp of [terminal, viaduct]) {
+    const g = easeOut(clamp01((t - sp.userData.start) / sp.userData.dur));
+    sp.scale.setScalar(Math.max(g, 0.0001));
+    sp.visible = g > 0.001;
+  }
+  // data points drift up very slightly
+  points.position.y = t * 0.6;
+  points.material.opacity = 0.15 + 0.35 * clamp01(t / 0.3);
+
+  renderer.render(scene, camera);
+}
+
+// ---------- export loop ----------
+window.__progress = 0;
+window.__done = false;
+window.__error = null;
+
+async function exportSet(width, height, dir, quality) {
+  renderer.setSize(width, height, false);
+  camera.aspect = width / height;
+  camera.updateProjectionMatrix();
+  for (let i = 0; i < FRAMES; i++) {
+    setFrame(i / (FRAMES - 1));
+    const blob = await new Promise((res) => canvas.toBlob(res, "image/jpeg", quality));
+    const r = await fetch(`/save?name=frame_${String(i + 1).padStart(4, "0")}.jpg&dir=${dir}`, {
+      method: "POST", body: blob,
+    });
+    if (!r.ok) throw new Error(`save failed: frame ${i + 1} -> ${r.status}`);
+    window.__progress++;
+    if (i % 10 === 0) status.textContent = `rendering ${dir}: ${i + 1}/${FRAMES}`;
+  }
+}
+
+(async () => {
+  try {
+    await exportSet(1600, 900, "w1600", 0.85);
+    await exportSet(960, 540, "w960", 0.8);
+    status.textContent = "DONE — all frames exported";
+    window.__done = true;
+  } catch (e) {
+    window.__error = String(e);
+    status.textContent = "ERROR: " + e;
+  }
+})();
+</script>
+</body>
+</html>

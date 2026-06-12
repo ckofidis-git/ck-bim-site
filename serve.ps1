@@ -21,6 +21,25 @@ $mime = @{
 while ($listener.IsListening) {
   try {
     $ctx = $listener.GetContext()
+
+    # POST /save?name=frame_0001.jpg — used only by render-frames.html (local frame export)
+    if ($ctx.Request.HttpMethod -eq 'POST' -and $ctx.Request.Url.AbsolutePath -eq '/save') {
+      $name = $ctx.Request.QueryString['name']
+      $dirq = $ctx.Request.QueryString['dir']
+      if ($name -match '^frame_\d{4}\.jpg$' -and $dirq -match '^[a-z0-9-]{1,40}$') {
+        $outDir = Join-Path $root "assets\cinematic\$dirq"
+        if (-not (Test-Path $outDir)) { New-Item -ItemType Directory -Force $outDir | Out-Null }
+        $ms = New-Object System.IO.MemoryStream
+        $ctx.Request.InputStream.CopyTo($ms)
+        [IO.File]::WriteAllBytes((Join-Path $outDir $name), $ms.ToArray())
+        $ctx.Response.StatusCode = 200
+      } else {
+        $ctx.Response.StatusCode = 400
+      }
+      $ctx.Response.Close()
+      continue
+    }
+
     $path = [Uri]::UnescapeDataString($ctx.Request.Url.AbsolutePath).TrimStart('/')
     if ([string]::IsNullOrWhiteSpace($path)) { $path = 'index.html' }
     $file = Join-Path $root $path

@@ -26,6 +26,16 @@ The monogram hides "CK" inside an isometric BIM wireframe cube: the **C** is the
 left bracket, the **K** is the centre construction line plus the two diagonals to the
 right-hand vertices. The dots are coordination nodes.
 
+## The cinematic scroll intro
+
+The opening section is a **canvas frame-sequence scrub** (the "scroll-cinematic"
+technique): 180 frames of an original wireframe digital-twin fly-through — the CK cube
+seeds a city that assembles as the camera cranes up — rendered from our own Three.js
+scene by `render-frames.html` (dev tool; POSTs frames to `serve.ps1 /save`). Scrolling
+plays the film forward/backward via `js/cinematic.js` (+ self-hosted Lenis smooth
+scroll in `js/vendor/`). Frames live in `assets/cinematic/w1600` (desktop) and `w960`
+(mobile). To regenerate: run `serve.ps1`, open `/render-frames.html`, wait for DONE.
+
 ## The 3D programme showcase
 
 `js/showcase3d.js` renders five **original procedural wireframe abstractions** (never
