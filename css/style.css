@@ -127,7 +127,7 @@ h3 { font-size: 1.15rem; font-weight: 600; margin-bottom: 0.45em; }
 .nav__burger span { width: 24px; height: 2px; background: var(--text); border-radius: 2px; transition: 0.3s; }
 
 /* ---------- Cinematic scroll intro ---------- */
-.cine { height: 460vh; position: relative; background: var(--bg); }
+.cine { height: 370vh; position: relative; background: var(--bg); }
 .cine__sticky {
   position: sticky;
   top: 0;
@@ -188,7 +188,7 @@ h3 { font-size: 1.15rem; font-weight: 600; margin-bottom: 0.45em; }
   0%, 100% { transform: translateY(0); }
   50% { transform: translateY(6px); }
 }
-.cine--mid { height: 320vh; }
+.cine--mid { height: 250vh; }
 .cine--mid .cine-line { font-size: clamp(1.7rem, 4.4vw, 3.2rem); }
 
 @media (prefers-reduced-motion: reduce) {
