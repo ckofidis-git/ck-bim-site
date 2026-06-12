@@ -60,16 +60,6 @@ const statObserver = new IntersectionObserver((entries) => {
 
 document.querySelectorAll(".stat[data-count]").forEach((el) => statObserver.observe(el));
 
-// --- Placeholder contact buttons ---
-document.querySelectorAll("[data-placeholder]").forEach((el) => {
-  el.addEventListener("click", (e) => {
-    if (el.getAttribute("href") === "#") {
-      e.preventDefault();
-      alert("Contact details coming soon — add your " + el.dataset.placeholder + " link in index.html.");
-    }
-  });
-});
-
 // --- Footer year ---
 document.getElementById("year").textContent = new Date().getFullYear();
 

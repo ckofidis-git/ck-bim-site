@@ -45,11 +45,10 @@ credit pattern.
 Open `index.html` in a browser, or run `serve.ps1` and visit `http://localhost:8377/`.
 External requests: Google Fonts + Three.js CDN (the rest is self-contained).
 
-## Before publishing
+## Publishing
 
-- [ ] Add a real email link in the **Contact** section (`data-placeholder="email"`).
-- [ ] Add the LinkedIn URL (`data-placeholder="linkedin"`).
-- [ ] Review all copy once more for anything beyond the agreed exposure level.
+Live at https://ckofidis-git.github.io/ck-bim-site/ (GitHub Pages, `main` branch root).
+Push to `main` and Pages rebuilds automatically. Contact links (email + LinkedIn) are wired up.
 
 ## Ideas to evolve
 
