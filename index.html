@@ -1,0 +1,465 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CK · BIM Management &amp; Digital Delivery</title>
+  <meta name="description" content="Christos Kofidis (CK) — Chartered Senior BIM Manager. Digital strategy, ISO 19650 information management, model coordination and automation for major infrastructure programmes.">
+  <link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+  <!-- ===================== NAV ===================== -->
+  <header class="nav" id="top">
+    <div class="container nav__inner">
+      <a class="brand" href="#top" aria-label="CK home">
+        <svg class="brand__mark" viewBox="0 0 100 100" aria-hidden="true">
+          <defs>
+            <linearGradient id="navGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%" stop-color="#38bdf8"/><stop offset="100%" stop-color="#818cf8"/>
+            </linearGradient>
+          </defs>
+          <g stroke="#64748b" stroke-width="1.5" stroke-opacity=".4" fill="none">
+            <polygon points="50,14 81.2,32 81.2,68 50,86 18.8,68 18.8,32"/>
+            <line x1="50" y1="50" x2="18.8" y2="32"/><line x1="50" y1="50" x2="81.2" y2="32"/><line x1="50" y1="50" x2="50" y2="86"/>
+          </g>
+          <polyline points="50,14 18.8,32 18.8,68 50,86" fill="none" stroke="url(#navGrad)" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/>
+          <g stroke="url(#navGrad)" stroke-width="6" stroke-linecap="round">
+            <line x1="50" y1="14" x2="50" y2="86"/><line x1="50" y1="50" x2="81.2" y2="32"/><line x1="50" y1="50" x2="81.2" y2="68"/>
+          </g>
+          <circle cx="50" cy="50" r="5" fill="#e0f2fe"/>
+        </svg>
+        <span class="brand__text">CK<span class="brand__dot">·</span><span class="brand__sub">Digital Construction</span></span>
+      </a>
+      <nav class="nav__links" id="navLinks">
+        <a href="#about">About</a>
+        <a href="#expertise">Expertise</a>
+        <a href="#programmes">Programmes</a>
+        <a href="#playbook">Playbook</a>
+        <a href="#journey">Journey</a>
+        <a href="#insights">Insights</a>
+        <a class="btn btn--small" href="#contact">Contact</a>
+      </nav>
+      <button class="nav__burger" id="navBurger" aria-label="Toggle menu" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </header>
+
+  <!-- ===================== HERO ===================== -->
+  <section class="hero">
+    <div class="hero__grid" aria-hidden="true"></div>
+    <div class="container hero__inner">
+      <div class="hero__copy">
+        <p class="eyebrow reveal">BIM Management &amp; Digital Delivery</p>
+        <h1 class="reveal">Building information,<br><span class="grad">engineered for delivery.</span></h1>
+        <p class="lede reveal">
+          Chartered Senior BIM Manager working on some of the world's largest infrastructure
+          programmes. I turn standards, models and data into one thing: confident decisions
+          on site and in the boardroom.
+        </p>
+        <div class="hero__cta reveal">
+          <a class="btn" href="#expertise">Explore expertise</a>
+          <a class="btn btn--ghost" href="#contact">Get in touch</a>
+        </div>
+        <ul class="hero__stats reveal">
+          <li><span class="stat" data-count="15">0</span><span class="stat__plus">+</span><small>years in BIM &amp; digital delivery</small></li>
+          <li><span class="stat" data-count="3">0</span><small>countries, mega-scale programmes</small></li>
+          <li><span class="stat stat--money" data-count="300">0</span><span class="stat__plus">k+</span><small>saved through automation, yearly</small></li>
+          <li><span class="stat" data-count="0">0</span><small>non-conformances in certification audit</small></li>
+        </ul>
+      </div>
+      <div class="hero__visual" aria-hidden="true">
+        <svg class="cube" viewBox="0 0 100 100">
+          <defs>
+            <linearGradient id="heroGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%" stop-color="#38bdf8"/><stop offset="55%" stop-color="#60a5fa"/><stop offset="100%" stop-color="#818cf8"/>
+            </linearGradient>
+          </defs>
+          <g class="cube__wire" stroke="#64748b" stroke-width="0.9" stroke-opacity=".45" fill="none">
+            <polygon points="50,14 81.2,32 81.2,68 50,86 18.8,68 18.8,32"/>
+            <line x1="50" y1="50" x2="18.8" y2="32"/><line x1="50" y1="50" x2="81.2" y2="32"/><line x1="50" y1="50" x2="50" y2="86"/>
+          </g>
+          <polyline class="draw draw--c" points="50,14 18.8,32 18.8,68 50,86" fill="none" stroke="url(#heroGrad)" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"/>
+          <g class="draw-group" stroke="url(#heroGrad)" stroke-width="3.2" stroke-linecap="round" fill="none">
+            <line class="draw draw--k1" x1="50" y1="14" x2="50" y2="86"/>
+            <line class="draw draw--k2" x1="50" y1="50" x2="81.2" y2="32"/>
+            <line class="draw draw--k3" x1="50" y1="50" x2="81.2" y2="68"/>
+          </g>
+          <g class="cube__nodes" fill="#0b1120" stroke="url(#heroGrad)" stroke-width="1.6">
+            <circle cx="50" cy="14" r="2.6"/><circle cx="18.8" cy="32" r="2.6"/><circle cx="18.8" cy="68" r="2.6"/>
+            <circle cx="50" cy="86" r="2.6"/><circle cx="81.2" cy="32" r="2.6"/><circle cx="81.2" cy="68" r="2.6"/>
+          </g>
+          <circle class="cube__core" cx="50" cy="50" r="3.2" fill="url(#heroGrad)"/>
+        </svg>
+        <div class="hero__tags">
+          <span>ISO 19650</span><span>Federated models</span><span>4D sequencing</span>
+          <span>Reality capture</span><span>Automation</span><span>BIM × GIS</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== ABOUT ===================== -->
+  <section class="section" id="about">
+    <div class="container">
+      <p class="eyebrow reveal">About</p>
+      <div class="about">
+        <div class="about__text reveal">
+          <h2>Hi, I'm Christos Kofidis.</h2>
+          <p>
+            I'm a Chartered Construction Manager (MCIOB) with an MEng in Civil &amp; Structural
+            Engineering, and I've spent 15+ years making BIM and digital construction actually work —
+            not in slide decks, but on live mega-programmes across the UK, the Middle East and Greece.
+          </p>
+          <p>
+            My career has run through aviation megaprojects, national high-speed rail, nuclear
+            new-build, water infrastructure and next-generation city development. Different sectors,
+            same mission: get the right information, to the right people, in a form they can act on.
+          </p>
+          <p>
+            I believe the best information management is invisible — teams just feel that
+            coordination is smoother, reviews are faster and nothing falls through the cracks.
+            Getting there takes strategy, standards and a healthy obsession with automating
+            everything that doesn't need a human.
+          </p>
+          <div class="about__badges">
+            <span class="badge">MCIOB · Chartered Construction Manager</span>
+            <span class="badge">MEng Civil &amp; Structural Engineering</span>
+            <span class="badge">Named in a national “Top 50 BIM Managers” list, 2025</span>
+          </div>
+        </div>
+        <aside class="about__note reveal">
+          <h3>A note on confidentiality</h3>
+          <p>
+            The programmes I've worked on are public record — but that's where it ends. You won't
+            find client documents, project models, requirement names or logos on this site;
+            every image is openly licensed, and every 3D visual is an original abstraction.
+            Discretion is part of the job. What I share here is the <em>craft</em>.
+          </p>
+        </aside>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== EXPERTISE ===================== -->
+  <section class="section section--alt" id="expertise">
+    <div class="container">
+      <p class="eyebrow reveal">Expertise</p>
+      <h2 class="reveal">What I bring to a programme</h2>
+      <div class="cards">
+        <article class="card reveal">
+          <div class="card__icon">⬡</div>
+          <h3>Digital Strategy &amp; BIM Execution</h3>
+          <p>BIM strategies and execution plans that align client objectives, standards and the
+             realities of delivery — from tender through design to construction.</p>
+        </article>
+        <article class="card reveal">
+          <div class="card__icon">✓</div>
+          <h3>ISO 19650 &amp; Information Management</h3>
+          <p>CDE workflows, naming and metadata discipline, audits and compliance — delivered as an
+             enabler, not a paperwork exercise. Certification-audit tested.</p>
+        </article>
+        <article class="card reveal">
+          <div class="card__icon">⊕</div>
+          <h3>Model Coordination &amp; Clash Detection</h3>
+          <p>Federated model management, clash detection and visual walkthroughs that surface design
+             conflicts long before they become site problems.</p>
+        </article>
+        <article class="card reveal">
+          <div class="card__icon">▶</div>
+          <h3>4D Sequencing &amp; Reality Capture</h3>
+          <p>Constructability reviews powered by 4D simulations, point clouds and as-built
+             verification — keeping the model honest against the ground truth.</p>
+        </article>
+        <article class="card reveal">
+          <div class="card__icon">⚙</div>
+          <h3>Automation &amp; Data</h3>
+          <p>Workflow automation, data validation apps and live dashboards that remove manual
+             drudgery — with six-figure annual savings to show for it. BIM-to-GIS integration included.</p>
+        </article>
+        <article class="card reveal">
+          <div class="card__icon">⇶</div>
+          <h3>Leadership &amp; Enablement</h3>
+          <p>Building and mentoring multidisciplinary BIM teams, running training and workshops, and
+             making good practice stick across dozens of stakeholders.</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== PLAYBOOK ===================== -->
+  <section class="section" id="playbook">
+    <div class="container">
+      <p class="eyebrow reveal">Playbook</p>
+      <h2 class="reveal">Signature moves</h2>
+      <p class="lede reveal">Real results from real programmes — anonymised, because that's how I work.</p>
+      <div class="plays">
+        <article class="play reveal">
+          <span class="play__num">01</span>
+          <h3>Automate the boring</h3>
+          <p>Designed a review-distribution engine connecting forms, email, task boards and BI
+             dashboards for 40+ reviewers across 7 disciplines. Zero spreadsheets harmed; over
+             $100k saved every year.</p>
+        </article>
+        <article class="play reveal">
+          <span class="play__num">02</span>
+          <h3>Validate at scale</h3>
+          <p>Built self-serve web apps that automatically check model element attributes against the
+             project's component catalogue — saving £200k+ in man-hours and making quantity takeoff
+             data trustworthy.</p>
+        </article>
+        <article class="play reveal">
+          <span class="play__num">03</span>
+          <h3>Make the model the meeting room</h3>
+          <p>Pioneered cloud federated-model adoption across an entire programme, setting the standard
+             others followed. The models I managed consistently ranked highest in active users.</p>
+        </article>
+        <article class="play reveal">
+          <span class="play__num">04</span>
+          <h3>Give data a pulse</h3>
+          <p>Created automated flows that extract live model registers straight from the CDE and share
+             them with every task team weekly. It became the programme-wide standard.</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== PROGRAMMES ===================== -->
+  <section class="section section--alt" id="programmes">
+    <div class="container">
+      <p class="eyebrow reveal">Programmes</p>
+      <h2 class="reveal">Built on real giants</h2>
+      <p class="lede reveal">
+        The public faces of programmes I've helped deliver. Every photo is openly licensed —
+        and the wireframes spinning beside them are original abstractions, never project data.
+      </p>
+      <div class="showcase">
+        <div class="showcase__stage" id="showcaseStage">
+          <canvas id="modelCanvas" aria-hidden="true"></canvas>
+          <p class="showcase__hint">⟳ geometry spins as you scroll</p>
+        </div>
+        <div class="showcase__cards" id="showcaseCards">
+
+          <article class="pcard reveal" data-model="terminal">
+            <div class="pcard__media">
+              <img src="assets/projects/riyadh-skyline.jpg" alt="Riyadh skyline at dusk" loading="lazy">
+            </div>
+            <div class="pcard__body">
+              <span class="pcard__era">2025 — now · Aviation · Riyadh</span>
+              <h3>King Salman International Airport</h3>
+              <p>One of the world's largest aviation programmes, rising over Riyadh. I own the BIM
+                 strategy and execution end-to-end — standards, coordination, audits and the data
+                 that keeps a megaproject honest.</p>
+              <a class="pcard__credit" href="https://commons.wikimedia.org/wiki/File:Riyadh_Skyline.jpg" target="_blank" rel="noopener">
+                Photo: B.alotaby · CC BY-SA 4.0 · Wikimedia Commons</a>
+            </div>
+          </article>
+
+          <article class="pcard pcard--pano reveal" data-model="linecity">
+            <div class="pcard__media">
+              <img src="assets/projects/neom-line-satellite.png" alt="The Line construction trench seen from orbit" loading="lazy">
+            </div>
+            <div class="pcard__body">
+              <span class="pcard__era">2023 — 2025 · Giga-project · NEOM</span>
+              <h3>NEOM — The Line</h3>
+              <p>A 170&nbsp;km linear city whose construction is visible from orbit — that's it above,
+                 photographed by satellite. I reviewed digital delivery across sectors and built
+                 automation that saved six figures a year.</p>
+              <a class="pcard__credit" href="https://commons.wikimedia.org/wiki/File:Line_Progress_October_2022.png" target="_blank" rel="noopener">
+                Image: European Space Agency · CC BY-SA 3.0 · Wikimedia Commons</a>
+            </div>
+          </article>
+
+          <article class="pcard reveal" data-model="viaduct">
+            <div class="pcard__media">
+              <img src="assets/projects/hs2-viaduct.jpg" alt="Bridging machine building the Colne Valley Viaduct on HS2" loading="lazy">
+            </div>
+            <div class="pcard__body">
+              <span class="pcard__era">2020 — 2023 · High-speed rail · UK</span>
+              <h3>HS2</h3>
+              <p>Britain's new high-speed railway. I led a 10-person digital team on one of its major
+                 sections — reality-capture twins, 4D constructability and an ISO 19650 certification
+                 audit passed without a single non-conformance.</p>
+              <a class="pcard__credit" href="https://commons.wikimedia.org/wiki/File:HS2_Colne_Valley_Viaduct_Under_Construction_Jan_31_2023_Bridging_Machine.jpg" target="_blank" rel="noopener">
+                Photo: OtisVR · CC BY-SA 4.0 · Wikimedia Commons · Colne Valley Viaduct</a>
+            </div>
+          </article>
+
+          <article class="pcard reveal" data-model="reactor">
+            <div class="pcard__media">
+              <img src="assets/projects/hinkley-cranes.jpg" alt="Forest of cranes at the Hinkley Point C construction site" loading="lazy">
+            </div>
+            <div class="pcard__body">
+              <span class="pcard__era">2018 — 2020 · Nuclear energy · UK</span>
+              <h3>Hinkley Point C</h3>
+              <p>The UK's first nuclear new-build in a generation — and a forest of cranes including
+                 the world's largest. I engineered construction-stage models and clash coordination
+                 for its most safety-critical structures.</p>
+              <a class="pcard__credit" href="https://commons.wikimedia.org/wiki/File:A_forest_of_cranes,_at_the_Hinkley_Point_C_power_station_construction_site_-_geograph.org.uk_-_7279689.jpg" target="_blank" rel="noopener">
+                Photo: Roger Cornfoot · CC BY-SA 2.0 · Wikimedia Commons</a>
+            </div>
+          </article>
+
+          <article class="pcard pcard--wire reveal" data-model="water">
+            <div class="pcard__body">
+              <span class="pcard__era">2014 — 2018 · Water · Yorkshire, UK</span>
+              <h3>Yorkshire's water network</h3>
+              <p>Where my BIM story started: parametric Revit families, Dynamo crane-lift automation
+                 and my own delivery schemes — clarifiers, detention tanks and rising mains. No
+                 dramatic open photography exists for these, so enjoy the geometry instead. ⟲</p>
+            </div>
+          </article>
+
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== SECTORS ===================== -->
+  <section class="strip">
+    <div class="container strip__inner reveal">
+      <span class="strip__label">Sectors</span>
+      <div class="strip__items">
+        <span>✈ Aviation</span><span>🚄 High-Speed Rail</span><span>⚡ Nuclear Energy</span>
+        <span>💧 Water</span><span>🏙 Giga-Projects &amp; New Cities</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== JOURNEY ===================== -->
+  <section class="section section--alt" id="journey">
+    <div class="container">
+      <p class="eyebrow reveal">Journey</p>
+      <h2 class="reveal">The road so far</h2>
+      <ol class="timeline">
+        <li class="timeline__item reveal">
+          <span class="timeline__date">2025 — now</span>
+          <h3>Senior BIM Manager</h3>
+          <p>International aviation megaprogramme, Middle East. Owning BIM strategy and execution
+             end-to-end: standards, coordination, audits, training and data-driven reporting.</p>
+        </li>
+        <li class="timeline__item reveal">
+          <span class="timeline__date">2023 — 2025</span>
+          <h3>BIM Manager</h3>
+          <p>Next-generation city development, Middle East. Digital delivery reviews across sectors,
+             standards development, and automation that saved six figures annually.</p>
+        </li>
+        <li class="timeline__item reveal">
+          <span class="timeline__date">2020 — 2023</span>
+          <h3>BIM Manager / BIM Lead</h3>
+          <p>National high-speed rail programme, UK. Led a 10-person digital team; reality-capture
+             twins, 4D constructability, and a flawless ISO 19650 certification audit.</p>
+        </li>
+        <li class="timeline__item reveal">
+          <span class="timeline__date">2018 — 2020</span>
+          <h3>Senior Digital Engineer</h3>
+          <p>Nuclear new-build programme, UK. Construction-stage models, clash coordination and
+             as-built analysis for some of the most safety-critical structures in Europe.</p>
+        </li>
+        <li class="timeline__item reveal">
+          <span class="timeline__date">2014 — 2018</span>
+          <h3>Project Leader &amp; BIM Engineer</h3>
+          <p>Water infrastructure frameworks, UK. From parametric design and Dynamo automation to
+             leading my own delivery schemes on site.</p>
+        </li>
+        <li class="timeline__item reveal">
+          <span class="timeline__date">2008 — 2014</span>
+          <h3>Engineer &amp; Surveyor — the foundations</h3>
+          <p>Civil/structural engineering and geomatics surveying across Greece and the UK. Where the
+             love of measurable, model-able reality began.</p>
+        </li>
+      </ol>
+    </div>
+  </section>
+
+  <!-- ===================== TOOLBOX ===================== -->
+  <section class="section" id="toolbox">
+    <div class="container">
+      <p class="eyebrow reveal">Toolbox</p>
+      <h2 class="reveal">Fluent in the full stack of digital construction</h2>
+      <div class="chips reveal">
+        <span class="chip">Revit</span><span class="chip">Civil 3D</span><span class="chip">Navisworks</span>
+        <span class="chip">Solibri</span><span class="chip">Tekla</span><span class="chip">Revizto</span>
+        <span class="chip">Bentley iTwin</span><span class="chip">ACC</span><span class="chip">ProjectWise</span>
+        <span class="chip">Aconex</span><span class="chip">Asite</span><span class="chip">FME</span>
+        <span class="chip">Power Automate</span><span class="chip">Power BI</span><span class="chip">Dynamo</span>
+        <span class="chip">ArcGIS</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== INSIGHTS ===================== -->
+  <section class="section section--alt" id="insights">
+    <div class="container">
+      <p class="eyebrow reveal">Insights</p>
+      <h2 class="reveal">Field notes — coming soon</h2>
+      <p class="lede reveal">Practical writing on information management, automation and the human side of BIM.</p>
+      <div class="cards cards--insights">
+        <article class="card card--soon reveal">
+          <span class="card__tag">Draft</span>
+          <h3>ISO 19650 without the paperwork pain</h3>
+          <p>Compliance that teams actually thank you for — how to make the standard serve delivery
+             instead of the other way round.</p>
+        </article>
+        <article class="card card--soon reveal">
+          <span class="card__tag">Draft</span>
+          <h3>The £200k spreadsheet you should delete</h3>
+          <p>How automated attribute validation turns model data from a liability into the most
+             trusted source on the programme.</p>
+        </article>
+        <article class="card card--soon reveal">
+          <span class="card__tag">Draft</span>
+          <h3>BIM × GIS: one map to rule the models</h3>
+          <p>Why geospatial context changes how stakeholders read a federated model — and how to
+             bridge the two worlds without friction.</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== CONTACT ===================== -->
+  <section class="section contact" id="contact">
+    <div class="container contact__inner reveal">
+      <svg class="contact__mark" viewBox="0 0 100 100" aria-hidden="true">
+        <defs>
+          <linearGradient id="contactGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" stop-color="#38bdf8"/><stop offset="100%" stop-color="#818cf8"/>
+          </linearGradient>
+        </defs>
+        <polyline points="50,14 18.8,32 18.8,68 50,86" fill="none" stroke="url(#contactGrad)" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
+        <g stroke="url(#contactGrad)" stroke-width="5" stroke-linecap="round">
+          <line x1="50" y1="14" x2="50" y2="86"/><line x1="50" y1="50" x2="81.2" y2="32"/><line x1="50" y1="50" x2="81.2" y2="68"/>
+        </g>
+      </svg>
+      <h2>Let's build something measurable.</h2>
+      <p class="lede">
+        Open to consulting conversations, speaking engagements and collaboration on digital
+        construction — anywhere in the world.
+      </p>
+      <div class="contact__actions">
+        <!-- TODO: add your preferred contact email -->
+        <a class="btn" href="#" data-placeholder="email">Email me</a>
+        <!-- TODO: add your LinkedIn profile URL -->
+        <a class="btn btn--ghost" href="#" data-placeholder="linkedin">LinkedIn</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== FOOTER ===================== -->
+  <footer class="footer">
+    <div class="container footer__inner">
+      <span>© <span id="year"></span> CK · Digital Construction</span>
+      <span class="footer__note">All views are my own. Photography is openly licensed (credits under each image);
+        no client documents, project models or internal material appear on this site.</span>
+    </div>
+  </footer>
+
+  <script src="js/main.js"></script>
+  <script type="module" src="js/showcase3d.js"></script>
+</body>
+</html>
