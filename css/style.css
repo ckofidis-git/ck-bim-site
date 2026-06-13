@@ -675,6 +675,34 @@ h3 { font-size: 1.15rem; font-weight: 600; margin-bottom: 0.45em; }
   .lead__card { padding: 26px; }
 }
 
+/* ---------- Privacy notice (floating pill) ---------- */
+.privacy {
+  position: fixed; left: 50%; bottom: 22px; transform: translateX(-50%);
+  z-index: 300; display: flex; align-items: center; gap: 18px;
+  max-width: min(680px, calc(100% - 32px));
+  padding: 12px 14px 12px 22px;
+  background: rgba(13, 20, 38, 0.82); backdrop-filter: blur(14px);
+  border: 1px solid var(--panel-border); border-radius: 999px;
+  box-shadow: 0 12px 40px rgba(2, 6, 23, 0.5);
+  transition: opacity 0.5s ease, transform 0.5s ease;
+}
+.privacy--hide { opacity: 0; transform: translateX(-50%) translateY(140%); pointer-events: none; }
+.privacy__body { display: flex; flex-direction: column; gap: 2px; }
+.privacy__eyebrow {
+  font-family: ui-monospace, "SFMono-Regular", Menlo, Consolas, monospace;
+  font-size: 0.66rem; letter-spacing: 0.2em; color: var(--accent-1); opacity: 0.85;
+}
+.privacy__text { color: var(--muted); font-size: 0.82rem; line-height: 1.4; }
+.privacy__btn { flex: none; white-space: nowrap; }
+
+@media (max-width: 560px) {
+  .privacy {
+    flex-direction: column; align-items: flex-start; gap: 12px;
+    border-radius: 18px; bottom: 12px; padding: 16px 18px;
+  }
+  .privacy__btn { width: 100%; }
+}
+
 /* ---------- Footer ---------- */
 .footer { border-top: 1px solid var(--panel-border); padding: 28px 0; }
 .footer__inner {

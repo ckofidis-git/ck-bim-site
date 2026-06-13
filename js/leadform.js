@@ -56,6 +56,7 @@
         body: new FormData(form),
       });
       if (res.ok) {
+        if (window.umami) window.umami.track("lead-toolkit-conversion");
         form.hidden = true;
         successPanel.hidden = false;
         requestAnimationFrame(() => successPanel.classList.add("is-in"));

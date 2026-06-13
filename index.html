@@ -94,6 +94,9 @@
     ]
   }
   </script>
+
+  <!-- Umami — cookieless, anonymous analytics (deferred; won't block paint or the Three.js canvas) -->
+  <script defer src="https://cloud.umami.is/script.js" data-website-id="YOUR_UMAMI_WEBSITE_ID"></script>
 </head>
 <body>
   <a class="skip-link" href="#main">Skip to content</a>
@@ -601,7 +604,7 @@
       </div>
 
       <div class="advisory__book reveal">
-        <a class="btn btn--lg" href="#book-consult">Schedule Technical Consultation →</a>
+        <a class="btn btn--lg" href="#book-consult" data-umami-event="click-consultation-booking">Schedule Technical Consultation →</a>
         <p class="advisory__note">30-minute technical scoping call · remote, worldwide · Cal.com / Calendly ready</p>
       </div>
     </div>
@@ -690,10 +693,20 @@
     </div>
   </footer>
 
+  <!-- ===================== PRIVACY NOTICE (floating pill) ===================== -->
+  <div class="privacy privacy--hide" id="privacy" role="note" aria-label="Privacy notice">
+    <div class="privacy__body">
+      <span class="privacy__eyebrow">// PRIVACY METRICS</span>
+      <p class="privacy__text">This site uses lightweight, anonymous analytics to measure performance. No tracking cookies are used.</p>
+    </div>
+    <button class="btn btn--small privacy__btn" id="privacyAck">Acknowledge</button>
+  </div>
+
   <script src="js/vendor/lenis.min.js"></script>
   <script src="js/main.js"></script>
   <script src="js/cinematic.js"></script>
   <script src="js/leadform.js"></script>
+  <script src="js/privacy.js"></script>
   <script type="module" src="js/showcase3d.js"></script>
 </body>
 </html>
