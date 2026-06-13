@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>The Digital Delivery Toolkit — CK</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+  /* ---- print setup ---- */
+  @page { size: A4; margin: 0; }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html, body {
+    -webkit-print-color-adjust: exact; print-color-adjust: exact;
+    font-family: "Inter", sans-serif; color: #1e293b;
+  }
+  :root {
+    --ink: #0f172a; --muted: #64748b; --line: #e2e8f0;
+    --cyan: #0ea5e9; --indigo: #6366f1; --navy: #0a0f1e;
+  }
+  .page {
+    width: 210mm; min-height: 297mm; padding: 18mm 20mm; position: relative;
+    page-break-after: always; overflow: hidden;
+  }
+  .page:last-child { page-break-after: auto; }
+  h1, h2, h3 { font-family: "Space Grotesk", sans-serif; color: var(--ink); }
+  code, pre { font-family: "JetBrains Mono", ui-monospace, monospace; }
+
+  /* ---- cover ---- */
+  .cover {
+    background: var(--navy); color: #e2e8f0;
+    display: flex; flex-direction: column; justify-content: space-between;
+    padding: 30mm 22mm;
+  }
+  .cover__grid {
+    position: absolute; inset: 0;
+    background-image:
+      linear-gradient(rgba(56,189,248,0.10) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(56,189,248,0.10) 1px, transparent 1px);
+    background-size: 14mm 14mm;
+    -webkit-mask-image: radial-gradient(ellipse 70% 60% at 50% 40%, #000 30%, transparent 78%);
+            mask-image: radial-gradient(ellipse 70% 60% at 50% 40%, #000 30%, transparent 78%);
+  }
+  .cover__top, .cover__mid, .cover__bot { position: relative; }
+  .brandline { display: flex; align-items: center; gap: 10px; }
+  .brandline svg { width: 34px; height: 34px; }
+  .brandline b { font-family: "Space Grotesk"; font-weight: 700; letter-spacing: .02em; font-size: 15pt; }
+  .brandline span { font-family: "Space Grotesk"; color: #94a3b8; letter-spacing: .18em; font-size: 8pt; text-transform: uppercase; }
+  .cover__eyebrow {
+    font-family: "JetBrains Mono"; color: #38bdf8; letter-spacing: .18em;
+    font-size: 9pt; margin-bottom: 10mm;
+  }
+  .cover h1 {
+    color: #f8fafc; font-size: 40pt; line-height: 1.05; font-weight: 700; letter-spacing: -.01em;
+  }
+  .cover h1 .g {
+    background: linear-gradient(120deg, #38bdf8, #818cf8);
+    -webkit-background-clip: text; background-clip: text; color: transparent;
+  }
+  .cover__sub { color: #cbd5e1; font-size: 13pt; margin-top: 8mm; max-width: 150mm; }
+  .cover__chips { display: flex; gap: 8px; margin-top: 12mm; flex-wrap: wrap; }
+  .cover__chips span {
+    font-family: "JetBrains Mono"; font-size: 8.5pt; color: #38bdf8;
+    border: 1px solid rgba(56,189,248,.3); background: rgba(56,189,248,.06);
+    border-radius: 999px; padding: 4px 12px;
+  }
+  .cover__bot { display: flex; justify-content: space-between; align-items: flex-end; color: #94a3b8; font-size: 9.5pt; }
+  .cover__bot b { color: #e2e8f0; font-family: "Space Grotesk"; font-size: 11pt; display: block; }
+
+  /* ---- content pages ---- */
+  .phead { display: flex; align-items: center; justify-content: space-between;
+    border-bottom: 2px solid var(--line); padding-bottom: 6mm; margin-bottom: 9mm; }
+  .phead__mark { display: flex; align-items: center; gap: 8px; }
+  .phead__mark svg { width: 22px; height: 22px; }
+  .phead__mark b { font-family: "Space Grotesk"; font-weight: 700; font-size: 11pt; color: var(--ink); }
+  .phead__tag { font-family: "JetBrains Mono"; font-size: 8pt; letter-spacing: .14em; color: var(--muted); text-transform: uppercase; }
+  .ptitle { font-size: 22pt; font-weight: 700; margin-bottom: 2mm; letter-spacing: -.01em; }
+  .pintro { color: var(--muted); font-size: 10.5pt; margin-bottom: 8mm; max-width: 160mm; line-height: 1.5; }
+
+  .grp { margin-bottom: 5mm; break-inside: avoid; }
+  .grp__h { font-family: "Space Grotesk"; font-size: 10pt; font-weight: 700; color: var(--cyan);
+    letter-spacing: .04em; margin-bottom: 3mm; display: flex; align-items: center; gap: 7px; }
+  .grp__h::before { content: ""; width: 12px; height: 2px; background: linear-gradient(90deg,#0ea5e9,#6366f1); display: inline-block; }
+  .chk { display: flex; align-items: flex-start; gap: 9px; padding: 2mm 0; border-bottom: 1px solid #f1f5f9; font-size: 10pt; }
+  .chk__box { flex: none; width: 14px; height: 14px; border: 1.5px solid var(--cyan); border-radius: 3px; margin-top: 1px; }
+  .chk b { font-weight: 600; }
+  .chk span { color: var(--muted); }
+
+  /* code page */
+  .codewrap { background: #0d1426; border: 1px solid #1e293b; border-radius: 8px; overflow: hidden; }
+  .codewrap__bar { background: #0a0f1e; padding: 7px 14px; display: flex; align-items: center; gap: 7px; border-bottom: 1px solid #1e293b; }
+  .dot { width: 9px; height: 9px; border-radius: 50%; }
+  .codewrap__file { font-family: "JetBrains Mono"; font-size: 8.5pt; color: #64748b; margin-left: 8px; }
+  pre.code { padding: 12px 16px; font-size: 7.9pt; line-height: 1.62; color: #cbd5e1; white-space: pre; overflow: hidden; }
+  .code .c { color: #64748b; font-style: italic; }   /* comment */
+  .code .k { color: #c084fc; }                        /* keyword */
+  .code .s { color: #5eead4; }                        /* string */
+  .code .f { color: #38bdf8; }                        /* func/def name */
+  .code .n { color: #fca5a5; }                        /* number/const */
+  .note { margin-top: 7mm; font-size: 9.5pt; color: var(--muted); border-left: 3px solid var(--cyan); padding: 2mm 0 2mm 5mm; line-height: 1.5; }
+
+  .cta {
+    margin-top: 10mm; background: linear-gradient(120deg, rgba(14,165,233,.08), rgba(99,102,241,.08));
+    border: 1px solid #dbeafe; border-radius: 10px; padding: 8mm; text-align: center;
+  }
+  .cta h3 { font-size: 14pt; margin-bottom: 3mm; }
+  .cta p { color: var(--muted); font-size: 10pt; margin-bottom: 4mm; }
+  .cta a { color: var(--cyan); font-weight: 600; text-decoration: none; font-family: "Space Grotesk"; }
+  .pfoot { position: absolute; bottom: 12mm; left: 20mm; right: 20mm; display: flex; justify-content: space-between;
+    font-size: 8pt; color: #94a3b8; border-top: 1px solid var(--line); padding-top: 4mm; font-family: "JetBrains Mono"; }
+</style>
+</head>
+<body>
+
+<!-- monogram template -->
+<svg style="display:none">
+  <defs>
+    <linearGradient id="ckg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#38bdf8"/><stop offset="1" stop-color="#818cf8"/>
+    </linearGradient>
+    <symbol id="ck" viewBox="0 0 100 100">
+      <g stroke="#64748b" stroke-width="1.5" stroke-opacity=".4" fill="none">
+        <polygon points="50,14 81.2,32 81.2,68 50,86 18.8,68 18.8,32"/>
+      </g>
+      <polyline points="50,14 18.8,32 18.8,68 50,86" fill="none" stroke="url(#ckg)" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/>
+      <g stroke="url(#ckg)" stroke-width="6" stroke-linecap="round">
+        <line x1="50" y1="14" x2="50" y2="86"/><line x1="50" y1="50" x2="81.2" y2="32"/><line x1="50" y1="50" x2="81.2" y2="68"/>
+      </g>
+      <circle cx="50" cy="50" r="5" fill="#e0f2fe"/>
+    </symbol>
+  </defs>
+</svg>
+
+<!-- ============ PAGE 1 — COVER ============ -->
+<section class="page cover">
+  <div class="cover__grid"></div>
+  <div class="cover__top brandline">
+    <svg><use href="#ck"/></svg>
+    <div><b>CK</b> <span>· Digital Construction</span></div>
+  </div>
+  <div class="cover__mid">
+    <div class="cover__eyebrow">// DEPLOY AUTOMATION &amp; COMPLIANCE</div>
+    <h1>The Digital<br>Delivery <span class="g">Toolkit</span></h1>
+    <p class="cover__sub">The Python automation patterns, Power Automate workflows and ISO 19650
+      verification checks used to manage digital delivery on the world's largest infrastructure programmes.</p>
+    <div class="cover__chips">
+      <span>BIM Automation</span><span>ISO 19650</span><span>Model Health</span><span>Clash &amp; Compliance</span>
+    </div>
+  </div>
+  <div class="cover__bot">
+    <div><b>Christos Kofidis</b>Chartered Senior BIM Manager · MCIOB</div>
+    <div>ckofidis-git.github.io/ck-bim-site</div>
+  </div>
+</section>
+
+<!-- ============ PAGE 2 — ISO 19650 CHECKLIST ============ -->
+<section class="page">
+  <div class="phead">
+    <div class="phead__mark"><svg><use href="#ck"/></svg><b>Digital Delivery Toolkit</b></div>
+    <div class="phead__tag">01 · Verification</div>
+  </div>
+  <h2 class="ptitle">ISO 19650 Pre-Submission Checklist</h2>
+  <p class="pintro">Run these checks on every information container before it leaves the CDE.
+    Generic, standard-aligned best practice — adapt the codes to your project's information standard.</p>
+
+  <div class="grp">
+    <div class="grp__h">A · Identification &amp; Naming</div>
+    <div class="chk"><span class="chk__box"></span><span><b>Naming convention</b> — fields, separators and codes match the agreed standard; no spaces or illegal characters.</span></div>
+    <div class="chk"><span class="chk__box"></span><span><b>Revision</b> — container revision incremented; superseded versions withdrawn from the work-in-progress area.</span></div>
+    <div class="chk"><span class="chk__box"></span><span><b>Discipline / type / role</b> codes correct for the authoring task team.</span></div>
+  </div>
+
+  <div class="grp">
+    <div class="grp__h">B · Status &amp; Suitability</div>
+    <div class="chk"><span class="chk__box"></span><span><b>Suitability code</b> (S0–S7 / A–B) set for the intended use — shared, published or for-construction.</span></div>
+    <div class="chk"><span class="chk__box"></span><span><b>Review state</b> reflects the actual approval stage, not the aspirational one.</span></div>
+    <div class="chk"><span class="chk__box"></span><span><b>Authorization</b> captured before any container moves to the published state.</span></div>
+  </div>
+
+  <div class="grp">
+    <div class="grp__h">C · Metadata &amp; Classification</div>
+    <div class="chk"><span class="chk__box"></span><span><b>Classification</b> (e.g. Uniclass) applied to all required elements.</span></div>
+    <div class="chk"><span class="chk__box"></span><span><b>Mandatory property sets</b> present and populated — zero nulls in required fields.</span></div>
+    <div class="chk"><span class="chk__box"></span><span><b>Units, coordinate system and shared origin</b> verified against the project standard.</span></div>
+  </div>
+
+  <div class="grp">
+    <div class="grp__h">D · Geometry &amp; Coordination</div>
+    <div class="chk"><span class="chk__box"></span><span><b>Federation</b> — model aligns to the shared origin with no offset or rotation error.</span></div>
+    <div class="chk"><span class="chk__box"></span><span><b>Clash detection</b> run; hard clashes resolved or logged with an owner and status.</span></div>
+    <div class="chk"><span class="chk__box"></span><span><b>Hygiene</b> — no orphaned or duplicated elements; unused families and styles purged.</span></div>
+  </div>
+
+  <div class="grp">
+    <div class="grp__h">E · CDE &amp; Delivery</div>
+    <div class="chk"><span class="chk__box"></span><span><b>Workflow state</b> — container in the correct CDE state with a complete audit trail.</span></div>
+    <div class="chk"><span class="chk__box"></span><span><b>MIDP / TIDP</b> — deliverable matches the planned milestone entry.</span></div>
+    <div class="chk"><span class="chk__box"></span><span><b>Transmittal</b> recorded; receiving parties and purpose documented.</span></div>
+  </div>
+
+  <div class="pfoot"><span>The Digital Delivery Toolkit</span><span>© Christos Kofidis · CK Digital Construction</span></div>
+</section>
+
+<!-- ============ PAGE 3 — PYTHON AUTOMATION ============ -->
+<section class="page">
+  <div class="phead">
+    <div class="phead__mark"><svg><use href="#ck"/></svg><b>Digital Delivery Toolkit</b></div>
+    <div class="phead__tag">02 · Automation</div>
+  </div>
+  <h2 class="ptitle">BIM Automation Starter Kit</h2>
+  <p class="pintro">A tool-agnostic pattern for auditing model health and compliance with Python.
+    The example uses the open <code>ifcopenshell</code> library so it runs anywhere — adapt the
+    same structure to the Revit API (pyRevit) or Navisworks where needed.</p>
+
+  <div class="codewrap">
+    <div class="codewrap__bar">
+      <span class="dot" style="background:#f87171"></span><span class="dot" style="background:#fbbf24"></span><span class="dot" style="background:#34d399"></span>
+      <span class="codewrap__file">model_audit.py</span>
+    </div>
+<pre class="code"><span class="c"># Lightweight BIM model-health &amp; compliance audit.</span>
+<span class="c"># Tool-agnostic patterns — shown here with ifcopenshell (open source).</span>
+<span class="k">import</span> re, csv
+<span class="k">import</span> ifcopenshell
+
+NAMING = re.<span class="f">compile</span>(<span class="s">r"^[A-Z]{2,6}-[A-Z]{2}-[A-Z0-9]{2,4}-[A-Z]{2}-\d{4}$"</span>)
+REQUIRED = [<span class="s">"Classification"</span>, <span class="s">"Status"</span>, <span class="s">"Phase"</span>]
+
+<span class="k">def</span> <span class="f">check_naming</span>(model):
+    <span class="c"># Flag any element whose Name breaks the agreed convention.</span>
+    <span class="k">return</span> [e.GlobalId <span class="k">for</span> e <span class="k">in</span> model.by_type(<span class="s">"IfcElement"</span>)
+            <span class="k">if</span> e.Name <span class="k">and</span> <span class="k">not</span> NAMING.match(e.Name)]
+
+<span class="k">def</span> <span class="f">audit_parameters</span>(model):
+    <span class="c"># Find elements missing any mandatory property.</span>
+    gaps = []
+    <span class="k">for</span> e <span class="k">in</span> model.by_type(<span class="s">"IfcElement"</span>):
+        psets = ifcopenshell.util.element.<span class="f">get_psets</span>(e)
+        present = {k <span class="k">for</span> p <span class="k">in</span> psets.values() <span class="k">for</span> k <span class="k">in</span> p}
+        missing = [p <span class="k">for</span> p <span class="k">in</span> REQUIRED <span class="k">if</span> p <span class="k">not</span> <span class="k">in</span> present]
+        <span class="k">if</span> missing: gaps.append((e.GlobalId, missing))
+    <span class="k">return</span> gaps
+
+<span class="k">def</span> <span class="f">clash_pairs</span>(model, tol=<span class="n">0.01</span>):
+    <span class="c"># Naive bounding-box overlap pass — seed for a full clash run.</span>
+    elems = model.by_type(<span class="s">"IfcElement"</span>)
+    hits = []
+    <span class="k">for</span> i, a <span class="k">in</span> <span class="f">enumerate</span>(elems):
+        <span class="k">for</span> b <span class="k">in</span> elems[i+<span class="n">1</span>:]:
+            <span class="k">if</span> <span class="f">boxes_overlap</span>(a, b, tol): hits.append((a.GlobalId, b.GlobalId))
+    <span class="k">return</span> hits
+
+<span class="k">def</span> <span class="f">write_report</span>(rows, path=<span class="s">"audit_report.csv"</span>):
+    <span class="k">with</span> <span class="f">open</span>(path, <span class="s">"w"</span>, newline=<span class="s">""</span>) <span class="k">as</span> f:
+        csv.<span class="f">writer</span>(f).writerows([(<span class="s">"id"</span>, <span class="s">"issue"</span>), *rows])
+
+<span class="k">if</span> __name__ == <span class="s">"__main__"</span>:
+    m = ifcopenshell.<span class="f">open</span>(<span class="s">"model.ifc"</span>)
+    <span class="f">write_report</span>([(g, <span class="s">"naming"</span>) <span class="k">for</span> g <span class="k">in</span> <span class="f">check_naming</span>(m)] +
+                 [(g, <span class="s">"params:"</span> + <span class="s">","</span>.join(x)) <span class="k">for</span> g, x <span class="k">in</span> <span class="f">audit_parameters</span>(m)])
+</pre>
+  </div>
+
+  <div class="pfoot"><span>The Digital Delivery Toolkit</span><span>© Christos Kofidis · CK Digital Construction</span></div>
+</section>
+
+<!-- ============ PAGE 4 — APPLY / CLOSING ============ -->
+<section class="page">
+  <div class="phead">
+    <div class="phead__mark"><svg><use href="#ck"/></svg><b>Digital Delivery Toolkit</b></div>
+    <div class="phead__tag">03 · Apply</div>
+  </div>
+  <h2 class="ptitle">Wire it into your workflow</h2>
+  <p class="pintro">Validation only earns its keep when it runs automatically. The pattern below turns
+    the audit script into a self-running quality gate on your Common Data Environment.</p>
+
+  <div class="grp">
+    <div class="grp__h">The three-step automation loop</div>
+    <div class="chk"><span class="chk__box"></span><span><b>Trigger</b> — fire on every container uploaded to the CDE (Power Automate / webhook).</span></div>
+    <div class="chk"><span class="chk__box"></span><span><b>Validate</b> — run <code>model_audit.py</code> against naming, parameters and clashes.</span></div>
+    <div class="chk"><span class="chk__box"></span><span><b>Report</b> — post a pass/fail summary to Teams and log results to a Power BI model-health dashboard.</span></div>
+  </div>
+
+  <div class="note"><b>Why it matters:</b> the same trigger → validate → report shape scales to any review
+    workflow. Catch issues at upload — before they reach a coordination meeting, a client review, or an
+    ISO 19650 audit — and your data becomes the most trusted source on the programme instead of a liability.</div>
+
+  <div class="cta">
+    <h3>Want this running on your programme?</h3>
+    <p>CK builds bespoke BIM automation, ISO 19650 workflows and digital-delivery strategy for
+      infrastructure teams worldwide.</p>
+    <a href="https://ckofidis-git.github.io/ck-bim-site/#contact">Start a conversation →</a>
+  </div>
+
+  <div class="pfoot"><span>The Digital Delivery Toolkit</span><span>© Christos Kofidis · CK Digital Construction</span></div>
+</section>
+
+</body>
+</html>

@@ -2,5 +2,6 @@ User-agent: *
 Allow: /
 Disallow: /render-frames.html
 Disallow: /render-og.html
+Disallow: /toolkit-source.html
 
 Sitemap: https://ckofidis-git.github.io/ck-bim-site/sitemap.xml

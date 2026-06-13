@@ -567,6 +567,68 @@
     </div>
   </section>
 
+  <!-- ===================== LEAD MAGNET: DIGITAL DELIVERY TOOLKIT ===================== -->
+  <section class="section lead" id="toolkit">
+    <div class="container lead__inner reveal">
+
+      <!-- Left: the offer -->
+      <div class="lead__copy">
+        <p class="lead__eyebrow">// DEPLOY AUTOMATION &amp; COMPLIANCE</p>
+        <h2>Download the Digital Delivery Toolkit</h2>
+        <p class="lead__sub">
+          Get the exact Python automation scripts, Power Automate patterns and ISO 19650
+          verification checklists CK uses to manage multi-billion-dollar infrastructure programmes.
+        </p>
+        <ul class="lead__list">
+          <li>
+            <span class="lead__ico" aria-hidden="true">{ }</span>
+            <div><strong>BIM Automation Starter Kit</strong>
+              <span>Python &amp; Power Automate patterns for model validation.</span></div>
+          </li>
+          <li>
+            <span class="lead__ico" aria-hidden="true">✓</span>
+            <div><strong>ISO 19650 Verification Checklist</strong>
+              <span>The pre-submission checks that keep a CDE audit-ready.</span></div>
+          </li>
+          <li>
+            <span class="lead__ico" aria-hidden="true">◇</span>
+            <div><strong>Revit Model-Health Audit</strong>
+              <span>A repeatable one-page framework you can run today.</span></div>
+          </li>
+        </ul>
+      </div>
+
+      <!-- Right: the capture form -->
+      <div class="lead__card">
+        <form class="lead__form" id="toolkitForm" novalidate>
+          <div class="lead__field">
+            <label for="leadName">First name</label>
+            <input id="leadName" name="name" type="text" required autocomplete="given-name" placeholder="e.g., John">
+          </div>
+          <div class="lead__field">
+            <label for="leadEmail">Email address</label>
+            <input id="leadEmail" name="email" type="email" required autocomplete="email" placeholder="e.g., john@company.com">
+          </div>
+          <!-- spam honeypot (hidden from humans) -->
+          <input class="lead__hp" type="text" name="_gotcha" tabindex="-1" autocomplete="off" aria-hidden="true">
+          <input type="hidden" name="_subject" value="New Digital Delivery Toolkit request">
+          <button class="btn lead__btn" type="submit" id="toolkitBtn">Access the Toolkit →</button>
+          <p class="lead__micro">No spam. Unsubscribe in one click. Email handled by Formspree, never shared.</p>
+          <p class="lead__status" id="toolkitStatus" role="alert" aria-live="assertive" hidden></p>
+        </form>
+
+        <!-- success panel (revealed on success) -->
+        <div class="lead__success" id="toolkitSuccess" hidden>
+          <div class="lead__check" aria-hidden="true">✓</div>
+          <h3>Toolkit Access Granted.</h3>
+          <p>Your download is ready below — and you're on the Field Notes list for new tools and writing.</p>
+          <a class="btn" id="toolkitDownload" href="assets/downloads/ck-digital-delivery-toolkit.pdf" download>Download the Toolkit</a>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
   <!-- ===================== FOOTER ===================== -->
   <footer class="footer">
     <div class="container footer__inner">
@@ -580,6 +642,7 @@
   <script src="js/vendor/lenis.min.js"></script>
   <script src="js/main.js"></script>
   <script src="js/cinematic.js"></script>
+  <script src="js/leadform.js"></script>
   <script type="module" src="js/showcase3d.js"></script>
 </body>
 </html>
