@@ -16,6 +16,8 @@ $mime = @{
   '.ico'  = 'image/x-icon'
   '.json' = 'application/json'
   '.md'   = 'text/plain; charset=utf-8'
+  '.txt'  = 'text/plain; charset=utf-8'
+  '.xml'  = 'application/xml; charset=utf-8'
 }
 
 while ($listener.IsListening) {
@@ -26,8 +28,11 @@ while ($listener.IsListening) {
     if ($ctx.Request.HttpMethod -eq 'POST' -and $ctx.Request.Url.AbsolutePath -eq '/save') {
       $name = $ctx.Request.QueryString['name']
       $dirq = $ctx.Request.QueryString['dir']
-      if ($name -match '^frame_\d{4}\.jpg$' -and $dirq -match '^[a-z0-9-]{1,40}$') {
-        $outDir = Join-Path $root "assets\cinematic\$dirq"
+      $okFrame = ($name -match '^frame_\d{4}\.jpg$' -and $dirq -match '^[a-z0-9-]{1,40}$')
+      $okOg    = ($name -match '^og-image\.png$' -and $dirq -eq 'assets')
+      if ($okFrame -or $okOg) {
+        if ($okOg) { $outDir = Join-Path $root 'assets' }
+        else { $outDir = Join-Path $root "assets\cinematic\$dirq" }
         if (-not (Test-Path $outDir)) { New-Item -ItemType Directory -Force $outDir | Out-Null }
         $ms = New-Object System.IO.MemoryStream
         $ctx.Request.InputStream.CopyTo($ms)

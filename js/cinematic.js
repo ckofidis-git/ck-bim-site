@@ -31,15 +31,22 @@
     let loading = false;
     let firstDrawn = false;
 
+    function loadFrame(i, priority) {
+      if (images[i]) return;
+      const img = new Image();
+      if ("fetchPriority" in img) img.fetchPriority = priority;   // hint the loader
+      img.onload = () => { if (!firstDrawn) { firstDrawn = true; draw(current < 0 ? 0 : current); } };
+      img.src = framePath(i + 1);
+      images[i] = img;
+    }
     function preload() {
       if (loading) return;
       loading = true;
-      for (let i = 0; i < cfg.count; i++) {
-        const img = new Image();
-        img.src = framePath(i + 1);
-        img.onload = () => { if (!firstDrawn) { firstDrawn = true; draw(current < 0 ? 0 : current); } };
-        images[i] = img;
-      }
+      loadFrame(0, "high");                              // first frame ASAP — paints the stage
+      const rest = () => { for (let i = 1; i < cfg.count; i++) loadFrame(i, "low"); };
+      // bulk download stays off the critical path so it never competes with FCP
+      if ("requestIdleCallback" in window) requestIdleCallback(rest, { timeout: 3000 });
+      else setTimeout(rest, 400);
     }
     if (cfg.lazy) {
       // start fetching ~1.5 viewports before the section arrives
@@ -48,7 +55,10 @@
       }, { rootMargin: "150% 0px 150% 0px" });
       io.observe(section);
     } else {
-      preload();
+      // intro: paint frame 0 immediately, defer the heavy preload until after load
+      loadFrame(0, "high");
+      if (document.readyState === "complete") preload();
+      else window.addEventListener("load", preload, { once: true });
     }
 
     let current = -1;

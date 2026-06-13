@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>CK — OG card renderer (dev tool)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  body { background: #0a0f1e; color: #e2e8f0; font-family: monospace; margin: 20px; }
+  canvas { border: 1px solid #334; max-width: 100%; height: auto; }
+  #status { margin: 12px 0; }
+</style>
+</head>
+<body>
+<!-- Dev tool: renders the 1200x630 branded social-share card from the same
+     Three.js wireframe scene + CK monogram, then POSTs it to serve.ps1 as
+     assets/og-image.png. Not linked from the site. -->
+<div id="status">loading…</div>
+<canvas id="webgl" width="1200" height="630" style="display:none"></canvas>
+<canvas id="c" width="1200" height="630"></canvas>
+
+<script type="module">
+import * as THREE from "https://cdn.jsdelivr.net/npm/three@0.165.0/build/three.module.js";
+
+const CYAN = 0x38bdf8, INDIGO = 0x818cf8, SLATE = 0x64748b, BLUE = 0x60a5fa;
+const W = 1200, H = 630;
+const status = document.getElementById("status");
+
+// ---------- Three.js city (compact, fully assembled) ----------
+const webgl = document.getElementById("webgl");
+const renderer = new THREE.WebGLRenderer({ canvas: webgl, antialias: true, preserveDrawingBuffer: true, alpha: false });
+renderer.setPixelRatio(1);
+renderer.setSize(W, H, false);
+const scene = new THREE.Scene();
+scene.background = new THREE.Color(0x0a0f1e);
+scene.fog = new THREE.Fog(0x0a0f1e, 12, 40);
+const camera = new THREE.PerspectiveCamera(40, W / H, 0.1, 100);
+
+function lineMat(c, o) { return new THREE.LineBasicMaterial({ color: c, transparent: true, opacity: o }); }
+function edges(g, c, o) { return new THREE.LineSegments(new THREE.EdgesGeometry(g, 12), lineMat(c, o)); }
+function polyline(pts, c, o) {
+  const g = new THREE.BufferGeometry().setFromPoints(pts.map(p => new THREE.Vector3(...p)));
+  return new THREE.Line(g, lineMat(c, o));
+}
+function rand(s) { const x = Math.sin(s * 127.1 + 311.7) * 43758.5453; return x - Math.floor(x); }
+
+for (let i = -30; i <= 30; i++) {
+  scene.add(polyline([[-30, 0, i], [30, 0, i]], CYAN, 0.06));
+  scene.add(polyline([[i, 0, -30], [i, 0, 30]], CYAN, 0.06));
+}
+let n = 0;
+for (let gx = -9; gx <= 11; gx += 2) {
+  for (let gz = -9; gz <= 9; gz += 2) {
+    const dist = Math.hypot(gx, gz);
+    if (dist < 2.4) { n++; continue; }
+    if (rand(n * 7 + 1) < 0.3) { n++; continue; }
+    const ht = 0.6 + rand(n * 13 + 2) * 3.4;
+    const w = 0.55 + rand(n * 17 + 3) * 0.5;
+    const cp = rand(n * 23 + 4);
+    const color = cp < 0.5 ? SLATE : (cp < 0.8 ? CYAN : INDIGO);
+    const tower = edges(new THREE.BoxGeometry(w, ht, w), color, cp < 0.5 ? 0.38 : 0.62);
+    tower.position.set(gx + (rand(n * 29 + 5) - 0.5) * 0.7, ht / 2, gz + (rand(n * 31 + 6) - 0.5) * 0.7);
+    scene.add(tower);
+    n++;
+  }
+}
+// glowing CK seed cube at the heart
+const cube = new THREE.Group();
+const R = 1.0, h = R / 2;
+cube.add(edges(new THREE.BoxGeometry(R, R, R), SLATE, 0.5));
+cube.add(polyline([[-h, h, h], [-h, h, -h], [-h, -h, -h], [-h, -h, h]], CYAN, 1));
+cube.add(polyline([[0, h, h], [0, -h, h]], BLUE, 1));
+cube.add(polyline([[0, 0, h], [h, h, h]], INDIGO, 1));
+cube.add(polyline([[0, 0, h], [h, -h, h]], INDIGO, 1));
+cube.position.set(0, 1.5, 0);
+cube.rotation.y = 0.6;
+scene.add(cube);
+
+const pts = new Float32Array(300 * 3);
+for (let i = 0; i < 300; i++) {
+  pts[i * 3] = (rand(i * 3 + 50) - 0.5) * 26;
+  pts[i * 3 + 1] = 0.3 + rand(i * 3 + 51) * 7;
+  pts[i * 3 + 2] = (rand(i * 3 + 52) - 0.5) * 26;
+}
+const pg = new THREE.BufferGeometry();
+pg.setAttribute("position", new THREE.BufferAttribute(pts, 3));
+scene.add(new THREE.Points(pg, new THREE.PointsMaterial({ color: CYAN, size: 0.05, transparent: true, opacity: 0.5 })));
+
+// dramatic low hero angle, framed to the right
+camera.position.set(7.5, 2.6, 11.5);
+camera.lookAt(3, 1.4, 0);
+renderer.render(scene, camera);
+
+// ---------- composite + branding on 2D canvas ----------
+const c = document.getElementById("c");
+const ctx = c.getContext("2d");
+
+function monogram(cx, cy, s, grad) {
+  // CK isometric hex cube from logo.svg (100x100 viewBox), scaled by s/100
+  const P = (x, y) => [cx + (x - 50) * s / 100, cy + (y - 50) * s / 100];
+  const line = (pairs, width, stroke) => {
+    ctx.beginPath();
+    pairs.forEach(([x, y], i) => { const [px, py] = P(x, y); i ? ctx.lineTo(px, py) : ctx.moveTo(px, py); });
+    ctx.lineWidth = width; ctx.strokeStyle = stroke; ctx.lineJoin = "round"; ctx.lineCap = "round"; ctx.stroke();
+  };
+  // faint hexagon
+  line([[50,14],[81.2,32],[81.2,68],[50,86],[18.8,68],[18.8,32],[50,14]], s * 0.012, "rgba(100,116,139,0.5)");
+  // C bracket + K spine/diagonals in gradient
+  line([[50,14],[18.8,32],[18.8,68],[50,86]], s * 0.05, grad);
+  line([[50,14],[50,86]], s * 0.05, grad);
+  line([[50,50],[81.2,32]], s * 0.05, grad);
+  line([[50,50],[81.2,68]], s * 0.05, grad);
+  const [dx, dy] = P(50, 50);
+  ctx.beginPath(); ctx.arc(dx, dy, s * 0.05, 0, Math.PI * 2); ctx.fillStyle = "#e0f2fe"; ctx.fill();
+}
+
+function render() {
+  // base + city
+  ctx.fillStyle = "#0a0f1e";
+  ctx.fillRect(0, 0, W, H);
+  ctx.drawImage(webgl, 0, 0, W, H);
+
+  // left legibility gradient
+  const lg = ctx.createLinearGradient(0, 0, W, 0);
+  lg.addColorStop(0, "rgba(10,15,30,0.96)");
+  lg.addColorStop(0.5, "rgba(10,15,30,0.72)");
+  lg.addColorStop(1, "rgba(10,15,30,0)");
+  ctx.fillStyle = lg;
+  ctx.fillRect(0, 0, W, H);
+  // bottom vignette for the URL
+  const bg = ctx.createLinearGradient(0, H, 0, H - 120);
+  bg.addColorStop(0, "rgba(10,15,30,0.85)");
+  bg.addColorStop(1, "rgba(10,15,30,0)");
+  ctx.fillStyle = bg;
+  ctx.fillRect(0, H - 120, W, 120);
+
+  const grad = ctx.createLinearGradient(80, 0, 760, 0);
+  grad.addColorStop(0, "#38bdf8"); grad.addColorStop(1, "#818cf8");
+
+  // monogram
+  monogram(132, 120, 120, grad);
+
+  // brand wordmark next to monogram
+  ctx.textBaseline = "middle";
+  ctx.fillStyle = "#e2e8f0";
+  ctx.font = '700 30px "Space Grotesk", sans-serif';
+  ctx.fillText("CK", 200, 112);
+  ctx.fillStyle = "#94a3b8";
+  ctx.font = '500 16px "Space Grotesk", sans-serif';
+  ctx.fillText("DIGITAL CONSTRUCTION", 238, 114);
+
+  // name
+  ctx.textBaseline = "alphabetic";
+  ctx.fillStyle = "#f1f5f9";
+  ctx.font = '700 72px "Space Grotesk", sans-serif';
+  ctx.fillText("Christos Kofidis", 80, 312);
+
+  // role (gradient)
+  ctx.fillStyle = grad;
+  ctx.font = '600 46px "Space Grotesk", sans-serif';
+  ctx.fillText("Senior BIM Manager", 80, 374);
+
+  // tagline
+  ctx.fillStyle = "#cbd5e1";
+  ctx.font = '400 27px "Inter", sans-serif';
+  ctx.fillText("Digital Delivery · ISO 19650 · BIM Automation", 82, 426);
+
+  // accent rule
+  ctx.fillStyle = "#38bdf8";
+  ctx.fillRect(82, 452, 132, 4);
+
+  // url
+  ctx.fillStyle = "#64748b";
+  ctx.font = '500 22px "Inter", sans-serif';
+  ctx.fillText("ckofidis-git.github.io/ck-bim-site", 80, 570);
+}
+
+window.__done = false;
+window.__error = null;
+(async () => {
+  try {
+    await document.fonts.load('700 72px "Space Grotesk"');
+    await document.fonts.load('600 46px "Space Grotesk"');
+    await document.fonts.load('400 27px "Inter"');
+    await document.fonts.ready;
+    render();
+    const blob = await new Promise((res) => c.toBlob(res, "image/png"));
+    const r = await fetch("/save?name=og-image.png&dir=assets", { method: "POST", body: blob });
+    if (!r.ok) throw new Error("save -> " + r.status);
+    status.textContent = "DONE — og-image.png saved (" + Math.round(blob.size / 1024) + " KB)";
+    window.__done = true;
+  } catch (e) {
+    window.__error = String(e);
+    status.textContent = "ERROR: " + e;
+  }
+})();
+</script>
+</body>
+</html>

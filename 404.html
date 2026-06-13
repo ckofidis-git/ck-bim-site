@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>404 — Page not found | CK · Digital Construction</title>
+  <meta name="robots" content="noindex">
+  <meta name="theme-color" content="#0a0f1e">
+  <link rel="icon" type="image/svg+xml" href="/ck-bim-site/assets/favicon.svg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=Inter:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/ck-bim-site/css/style.css">
+  <style>
+    .nf {
+      min-height: 100vh;
+      display: grid;
+      place-items: center;
+      text-align: center;
+      padding: 40px 24px;
+      position: relative;
+      overflow: hidden;
+    }
+    .nf__grid {
+      position: absolute; inset: 0;
+      background-image:
+        linear-gradient(rgba(56,189,248,0.05) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(56,189,248,0.05) 1px, transparent 1px);
+      background-size: 44px 44px;
+      mask-image: radial-gradient(ellipse 80% 70% at 50% 45%, black 30%, transparent 75%);
+      -webkit-mask-image: radial-gradient(ellipse 80% 70% at 50% 45%, black 30%, transparent 75%);
+    }
+    .nf__inner { position: relative; max-width: 540px; }
+    .nf__code {
+      font-family: var(--font-head);
+      font-size: clamp(4rem, 16vw, 8rem);
+      font-weight: 700;
+      line-height: 1;
+      background: var(--grad);
+      -webkit-background-clip: text; background-clip: text; color: transparent;
+    }
+    .nf__mark { width: 70px; height: 70px; margin-bottom: 26px; }
+    .nf h1 { font-size: clamp(1.4rem, 4vw, 2rem); margin: 8px 0 14px; }
+    .nf p { color: var(--muted); margin-bottom: 30px; }
+  </style>
+</head>
+<body>
+  <main class="nf">
+    <div class="nf__grid" aria-hidden="true"></div>
+    <div class="nf__inner">
+      <svg class="nf__mark" viewBox="0 0 100 100" aria-hidden="true">
+        <defs>
+          <linearGradient id="g404" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" stop-color="#38bdf8"/><stop offset="100%" stop-color="#818cf8"/>
+          </linearGradient>
+        </defs>
+        <polyline points="50,14 18.8,32 18.8,68 50,86" fill="none" stroke="url(#g404)" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
+        <g stroke="url(#g404)" stroke-width="5" stroke-linecap="round">
+          <line x1="50" y1="14" x2="50" y2="86"/><line x1="50" y1="50" x2="81.2" y2="32"/><line x1="50" y1="50" x2="81.2" y2="68"/>
+        </g>
+      </svg>
+      <div class="nf__code">404</div>
+      <h1>This model isn't in the federation.</h1>
+      <p>The page you're after doesn't exist or has moved. Let's get you back to solid ground.</p>
+      <a class="btn" href="/ck-bim-site/">Return home</a>
+    </div>
+  </main>
+</body>
+</html>
