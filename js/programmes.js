@@ -127,6 +127,7 @@
     fill(elContrib, d.contributions);
     fill(elAchieve, d.achievements);
     modal.classList.add("is-open");
+    if (window.__lenis) window.__lenis.stop();        // lock page scroll behind the modal
     document.addEventListener("keydown", onKey);
     requestAnimationFrame(() => dialog.focus());
     if (window.umami) window.umami.track("programme-detail-view", { programme: d.title });
@@ -134,6 +135,7 @@
 
   function close() {
     modal.classList.remove("is-open");
+    if (window.__lenis) window.__lenis.start();        // resume page scroll
     document.removeEventListener("keydown", onKey);
     if (lastTrigger && typeof lastTrigger.focus === "function") lastTrigger.focus();
     lastTrigger = null;

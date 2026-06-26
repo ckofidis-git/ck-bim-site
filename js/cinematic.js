@@ -112,6 +112,7 @@
   let lenis = null;
   if (!reduced && typeof Lenis !== "undefined") {
     lenis = new Lenis({ lerp: 0.09, smoothWheel: true });
+    window.__lenis = lenis;                       // exposed so modals can pause page scroll
     document.querySelectorAll('a[href^="#"]').forEach((a) => {
       a.addEventListener("click", (e) => {
         const target = document.querySelector(a.getAttribute("href"));
