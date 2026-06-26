@@ -525,23 +525,6 @@ h3 { font-size: 1.15rem; font-weight: 600; margin-bottom: 0.45em; }
 .pmodal__title { font-size: 1.7rem; margin: 8px 0 14px; padding-right: 40px; }
 .pmodal__intro { color: var(--text); font-size: 1.02rem; line-height: 1.6; }
 
-.pmodal__redact {
-  display: flex; align-items: center; gap: 10px; flex-wrap: wrap;
-  margin: 22px 0; padding: 12px 16px;
-  border: 1px dashed var(--panel-border); border-radius: 10px;
-  background: rgba(148, 163, 184, 0.04);
-}
-.pmodal__redact-label {
-  font-family: ui-monospace, "SFMono-Regular", Menlo, monospace;
-  font-size: 0.66rem; letter-spacing: 0.18em; text-transform: uppercase;
-  color: var(--muted);
-}
-.redacted {
-  filter: blur(5px); color: transparent; user-select: none;
-  background: rgba(148, 163, 184, 0.28); border-radius: 4px;
-  font-family: ui-monospace, monospace; font-size: 0.8rem; padding: 1px 6px;
-}
-
 .pmodal__section { margin-top: 24px; }
 .pmodal__section h4 {
   font-family: var(--font-head); font-size: 0.82rem; font-weight: 600;
