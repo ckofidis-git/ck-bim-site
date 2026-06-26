@@ -369,6 +369,7 @@
               <p>One of the world's largest aviation programmes — six runways drawn into the desert.
                  Christos owns the BIM strategy and execution end-to-end: standards, coordination,
                  audits and the data that keeps a megaproject honest.</p>
+              <button class="pcard__more" type="button">View contribution<span aria-hidden="true"> →</span></button>
             </div>
           </article>
 
@@ -382,6 +383,7 @@
               <p>A new generation of cities on the Red Sea — from a 170&nbsp;km linear city to Oxagon,
                  the octagonal port city above. He reviewed digital delivery across sectors and built
                  automation that saved six figures a year.</p>
+              <button class="pcard__more" type="button">View contribution<span aria-hidden="true"> →</span></button>
             </div>
           </article>
 
@@ -397,6 +399,7 @@
                  audit passed without a single non-conformance.</p>
               <a class="pcard__credit" href="https://commons.wikimedia.org/wiki/File:HS2_Colne_Valley_Viaduct_Under_Construction_Jan_31_2023_Bridging_Machine.jpg" target="_blank" rel="noopener">
                 Photo: OtisVR · CC BY-SA 4.0 · Wikimedia Commons · Colne Valley Viaduct</a>
+              <button class="pcard__more" type="button">View contribution<span aria-hidden="true"> →</span></button>
             </div>
           </article>
 
@@ -410,6 +413,7 @@
               <p>The UK's first nuclear new-build in a generation — where the world's largest crane
                  lifts reactor domes into place. He engineered construction-stage models and clash
                  coordination for its most safety-critical structures.</p>
+              <button class="pcard__more" type="button">View contribution<span aria-hidden="true"> →</span></button>
             </div>
           </article>
 
@@ -423,6 +427,7 @@
               <p>Where his BIM story started: parametric Revit families, Dynamo crane-lift automation
                  and delivery schemes of his own — clarifiers, detention tanks and rising mains across
                  the moors.</p>
+              <button class="pcard__more" type="button">View contribution<span aria-hidden="true"> →</span></button>
             </div>
           </article>
 
@@ -702,11 +707,42 @@
     <button class="btn btn--small privacy__btn" id="privacyAck">Acknowledge</button>
   </div>
 
+  <!-- ===================== PROGRAMME DETAIL MODAL ===================== -->
+  <div class="pmodal" id="progModal">
+    <div class="pmodal__overlay" data-close></div>
+    <div class="pmodal__dialog" role="dialog" aria-modal="true" aria-labelledby="progModalTitle" tabindex="-1">
+      <button class="pmodal__close" type="button" aria-label="Close" data-close>&times;</button>
+      <p class="pmodal__era" id="progModalEra"></p>
+      <h3 class="pmodal__title" id="progModalTitle"></h3>
+      <p class="pmodal__intro" id="progModalIntro"></p>
+
+      <div class="pmodal__redact" aria-hidden="true" title="Sensitive details withheld">
+        <span class="pmodal__redact-label">Withheld</span>
+        <span class="redacted">████████████</span>
+        <span class="redacted">█████████</span>
+        <span class="redacted">███████████</span>
+      </div>
+
+      <div class="pmodal__section">
+        <h4>Contribution</h4>
+        <ul class="pmodal__list" id="progModalContrib"></ul>
+      </div>
+      <div class="pmodal__section">
+        <h4>Impact</h4>
+        <ul class="pmodal__list pmodal__list--win" id="progModalAchieve"></ul>
+      </div>
+
+      <p class="pmodal__note">Client, employer and project-document details are withheld under
+        confidentiality — only methods and outcomes are shown.</p>
+    </div>
+  </div>
+
   <script src="js/vendor/lenis.min.js"></script>
   <script src="js/main.js"></script>
   <script src="js/cinematic.js"></script>
   <script src="js/leadform.js"></script>
   <script src="js/privacy.js"></script>
+  <script src="js/programmes.js"></script>
   <script type="module" src="js/showcase3d.js"></script>
 </body>
 </html>

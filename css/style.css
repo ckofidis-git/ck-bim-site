@@ -478,6 +478,94 @@ h3 { font-size: 1.15rem; font-weight: 600; margin-bottom: 0.45em; }
   background-size: 28px 28px, 28px 28px, 100% 100%;
 }
 
+/* ---------- Programme card "view contribution" affordance ---------- */
+.pcard { cursor: pointer; }
+.pcard__more {
+  display: inline-flex; align-items: center; gap: 4px;
+  margin-top: 16px; padding: 0;
+  background: none; border: none; cursor: pointer;
+  font-family: var(--font-head); font-weight: 600; font-size: 0.9rem;
+  color: var(--accent-1); transition: gap 0.2s ease;
+}
+.pcard:hover .pcard__more { gap: 9px; }
+.pcard__more:focus-visible { outline: 2px solid var(--accent-1); outline-offset: 3px; border-radius: 4px; }
+
+/* ---------- Programme detail modal ---------- */
+.pmodal {
+  position: fixed; inset: 0; z-index: 400;
+  display: flex; align-items: center; justify-content: center; padding: 24px;
+  background: rgba(2, 6, 23, 0.74); backdrop-filter: blur(6px);
+  opacity: 0; visibility: hidden;
+  transition: opacity 0.3s ease, visibility 0.3s ease;
+}
+.pmodal.is-open { opacity: 1; visibility: visible; }
+.pmodal__overlay { position: absolute; inset: 0; }
+.pmodal__dialog {
+  position: relative; z-index: 1;
+  width: min(720px, 100%); max-height: 86vh; overflow-y: auto;
+  background: var(--bg-alt); border: 1px solid var(--panel-border);
+  border-radius: var(--radius); padding: 38px 40px 32px;
+  box-shadow: 0 30px 80px rgba(2, 6, 23, 0.7);
+  transform: translateY(16px) scale(0.98); transition: transform 0.3s ease;
+}
+.pmodal.is-open .pmodal__dialog { transform: none; }
+.pmodal__close {
+  position: absolute; top: 16px; right: 18px;
+  width: 38px; height: 38px; display: grid; place-items: center;
+  background: var(--panel); border: 1px solid var(--panel-border); border-radius: 10px;
+  color: var(--muted); font-size: 1.4rem; line-height: 1; cursor: pointer;
+  transition: color 0.2s ease, border-color 0.2s ease;
+}
+.pmodal__close:hover { color: var(--text); border-color: var(--accent-1); }
+.pmodal__era {
+  font-family: var(--font-head); font-size: 0.78rem; font-weight: 600;
+  letter-spacing: 0.14em; text-transform: uppercase; color: var(--accent-1);
+}
+.pmodal__title { font-size: 1.7rem; margin: 8px 0 14px; padding-right: 40px; }
+.pmodal__intro { color: var(--text); font-size: 1.02rem; line-height: 1.6; }
+
+.pmodal__redact {
+  display: flex; align-items: center; gap: 10px; flex-wrap: wrap;
+  margin: 22px 0; padding: 12px 16px;
+  border: 1px dashed var(--panel-border); border-radius: 10px;
+  background: rgba(148, 163, 184, 0.04);
+}
+.pmodal__redact-label {
+  font-family: ui-monospace, "SFMono-Regular", Menlo, monospace;
+  font-size: 0.66rem; letter-spacing: 0.18em; text-transform: uppercase;
+  color: var(--muted);
+}
+.redacted {
+  filter: blur(5px); color: transparent; user-select: none;
+  background: rgba(148, 163, 184, 0.28); border-radius: 4px;
+  font-family: ui-monospace, monospace; font-size: 0.8rem; padding: 1px 6px;
+}
+
+.pmodal__section { margin-top: 24px; }
+.pmodal__section h4 {
+  font-family: var(--font-head); font-size: 0.82rem; font-weight: 600;
+  letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted);
+  margin-bottom: 12px; padding-bottom: 8px; border-bottom: 1px solid var(--panel-border);
+}
+.pmodal__list { list-style: none; display: flex; flex-direction: column; gap: 11px; }
+.pmodal__list li { position: relative; padding-left: 24px; color: var(--muted); font-size: 0.94rem; line-height: 1.55; }
+.pmodal__list li::before {
+  content: "▸"; position: absolute; left: 4px; top: 0; color: var(--accent-1);
+}
+.pmodal__list--win li::before { content: "✓"; color: var(--ok); }
+.pmodal__list--win li { color: var(--text); }
+
+.pmodal__note {
+  margin-top: 26px; padding-top: 16px; border-top: 1px solid var(--panel-border);
+  color: var(--muted); font-size: 0.8rem; opacity: 0.8; line-height: 1.5;
+}
+
+@media (max-width: 560px) {
+  .pmodal { padding: 14px; }
+  .pmodal__dialog { padding: 30px 22px 26px; max-height: 90vh; }
+  .pmodal__title { font-size: 1.4rem; }
+}
+
 /* ---------- Sector strip ---------- */
 .strip { background: var(--bg-alt); border-block: 1px solid var(--panel-border); padding: 26px 0; }
 .strip__inner { display: flex; align-items: center; gap: 28px; flex-wrap: wrap; }
