@@ -25,7 +25,7 @@
     const canvas = section.querySelector("canvas");
     const ctx = canvas.getContext("2d", { alpha: false });
     const lines = [...section.querySelectorAll(".cine-line")];
-    const framePath = (i) => `assets/cinematic/${cfg.dir}/frame_${String(i).padStart(4, "0")}.jpg`;
+    const framePath = (i) => `assets/cinematic/${cfg.dir}/frame_${String(i).padStart(4, "0")}.jpg?v=2`;
 
     const images = [];
     let loading = false;
