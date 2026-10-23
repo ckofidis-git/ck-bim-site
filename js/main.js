@@ -119,3 +119,25 @@ if (heroVisual && hero && !reducedMotion) {
   });
   hero.addEventListener("mouseleave", () => { heroVisual.style.transform = ""; });
 }
+
+// --- Workshop filter (All / BIM / GIS / Data & AI) ---
+(() => {
+  const btns = document.querySelectorAll(".tool-filter__btn");
+  const tools = document.querySelectorAll(".tool");
+  btns.forEach((btn) => {
+    btn.addEventListener("click", () => {
+      const f = btn.dataset.filter;
+      btns.forEach((b) => {
+        const on = b === btn;
+        b.classList.toggle("is-active", on);
+        b.setAttribute("aria-pressed", on ? "true" : "false");
+      });
+      tools.forEach((t) => {
+        const kinds = (t.dataset.kind || "").split(" ");
+        const show = f === "all" || kinds.includes(f);
+        t.hidden = !show;
+        if (show) t.classList.add("is-visible");
+      });
+    });
+  });
+})();

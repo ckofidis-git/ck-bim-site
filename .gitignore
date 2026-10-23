@@ -3,3 +3,4 @@ scroll-cinematic/
 
 # source images (copies live in assets/projects/)
 Images/
+.claude/

@@ -35,7 +35,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="css/style.css?v=9">
+  <link rel="stylesheet" href="css/style.css?v=10">
 
   <!-- Structured data: maps CK to his name + core competencies -->
   <script type="application/ld+json">
@@ -129,6 +129,7 @@
         <a href="#programmes">Programmes</a>
         <a href="#playbook">Playbook</a>
         <a href="#journey">Journey</a>
+        <a href="#workshop">Workshop</a>
         <a href="#insights">Insights</a>
         <a class="btn btn--small" href="#contact">Contact</a>
       </nav>
@@ -493,8 +494,151 @@
     </div>
   </section>
 
+  <!-- ===================== WORKSHOP: TOOLS BUILT ===================== -->
+  <section class="section" id="workshop">
+    <div class="container">
+      <p class="eyebrow reveal">Workshop</p>
+      <h2 class="reveal">Tools he builds — BIM, GIS and data</h2>
+      <p class="lede reveal">Recent tools from the programme floor, built in Python, Dynamo, the Revit and
+         Civil 3D APIs, ArcGIS Pro and the browser. Described by what they do and why they matter;
+         the projects, clients and data they run on stay private.</p>
+
+      <div class="tool-filter reveal" role="group" aria-label="Filter tools">
+        <button type="button" class="tool-filter__btn is-active" data-filter="all" aria-pressed="true">All</button>
+        <button type="button" class="tool-filter__btn" data-filter="bim" aria-pressed="false">BIM</button>
+        <button type="button" class="tool-filter__btn" data-filter="gis" aria-pressed="false">GIS</button>
+        <button type="button" class="tool-filter__btn" data-filter="data" aria-pressed="false">Data &amp; AI</button>
+      </div>
+
+      <div class="tools">
+        <article class="tool reveal" data-kind="bim">
+          <span class="tool__tag">BIM · Revit</span>
+          <h3>Model review engine</h3>
+          <p class="tool__why">One push-button reviewer for every design team on a programme, instead of a
+             different spreadsheet checklist per consultant.</p>
+          <ul class="tool__what">
+            <li>Batch-opens each model detached and runs 100+ automated checks against the client's model-quality checklist</li>
+            <li>One engine, many packages: each team's rules, stages and thresholds live in a small profile file</li>
+            <li>Checks every model number against the stage's information delivery plan</li>
+            <li>Writes a weighted-score report and a comment register ready for the reviewer to edit and issue</li>
+          </ul>
+          <p class="tool__stack">Revit API · Python · Dynamo Player</p>
+          <p class="tool__impact">Every consultant measured with the same yardstick, every time.</p>
+        </article>
+
+        <article class="tool reveal" data-kind="bim">
+          <span class="tool__tag">BIM · Civil 3D</span>
+          <h3>Civil 3D model review</h3>
+          <p class="tool__why">The same review discipline for infrastructure drawings, where most checks used to be visual.</p>
+          <ul class="tool__what">
+            <li>Reads pipe networks, surfaces, corridors and property sets without opening each drawing by hand</li>
+            <li>Checks naming, levels, classification codes and required data against the agreed standards</li>
+            <li>Same report and comment-register format as the Revit engine</li>
+          </ul>
+          <p class="tool__stack">Civil 3D .NET API · Python · Dynamo</p>
+          <p class="tool__impact">One review language across Revit and Civil 3D.</p>
+        </article>
+
+        <article class="tool reveal" data-kind="bim">
+          <span class="tool__tag">BIM · Quantities</span>
+          <h3>Model-to-bill linker</h3>
+          <p class="tool__why">Bills of quantities from different teams describe the same work in different
+             words. The tool links each modelled element to the priced line it belongs to.</p>
+          <ul class="tool__what">
+            <li>Normalises bill wording ("5-way", "5 Ways", "mm²", "sq mm") and reads it into structured items</li>
+            <li>Attaches property sets to pipe networks and matches each element to its bill item</li>
+            <li>Uses depth from grading surfaces and standard-detail dimensions to choose the right depth band</li>
+            <li>Dry-run mode shows every match before anything is written</li>
+          </ul>
+          <p class="tool__stack">Civil 3D API · Python · Dynamo</p>
+          <p class="tool__impact">Model quantities traceable to the bill, line by line.</p>
+        </article>
+
+        <article class="tool reveal" data-kind="bim data">
+          <span class="tool__tag">BIM · Data</span>
+          <h3>Model-to-data converter &amp; QTO dashboard</h3>
+          <p class="tool__why">Quantities and model analytics without waiting for an authoring licence.</p>
+          <ul class="tool__what">
+            <li>Converts Revit and DWG files into structured tables in one batch</li>
+            <li>Runs element analytics and quantity take-off per model, with optional unit-rate pricing</li>
+            <li>Rebuilds one dashboard across every package, milestone and discipline</li>
+          </ul>
+          <p class="tool__stack">Python · pandas · HTML dashboard</p>
+          <p class="tool__impact">Package-level quantities in a single page anyone can open.</p>
+        </article>
+
+        <article class="tool reveal" data-kind="bim">
+          <span class="tool__tag">BIM · 4D</span>
+          <h3>Browser-based 4D sequencer</h3>
+          <p class="tool__why">Construction sequencing that any engineer can try, without specialist software.</p>
+          <ul class="tool__what">
+            <li>Loads IFC exports from Revit and Civil 3D into one 3D scene in the browser</li>
+            <li>Build a simple programme, link elements to activities and play the sequence on a time bar</li>
+            <li>Runs entirely on the user's laptop: nothing is installed and no model leaves the machine</li>
+          </ul>
+          <p class="tool__stack">IFC · WebGL · JavaScript</p>
+          <p class="tool__impact">4D conversations in the weekly meeting, not the quarterly one.</p>
+        </article>
+
+        <article class="tool reveal" data-kind="gis">
+          <span class="tool__tag">GIS · ArcGIS Pro</span>
+          <h3>BIM-to-GIS toolbox &amp; ribbon</h3>
+          <p class="tool__why">Getting design models and as-builts into the map the same way every time.</p>
+          <ul class="tool__what">
+            <li>Imports Civil 3D networks split by system, Revit elements as points and footprints, KMZ and survey as-builts</li>
+            <li>Classifies as-built and ground-penetrating-radar drawings by rule tables, not by hand</li>
+            <li>Cleans CAD fields, applies symbology, derives flow direction from inverts and arranges the map</li>
+            <li>Exports KML and checks mobile map packages before they go to the field</li>
+          </ul>
+          <p class="tool__stack">ArcGIS Pro · arcpy · .NET add-in</p>
+          <p class="tool__impact">One geodatabase that matches the models, built by a repeatable process.</p>
+        </article>
+
+        <article class="tool reveal" data-kind="gis data">
+          <span class="tool__tag">GIS · Dashboard</span>
+          <h3>BIM × GIS register</h3>
+          <p class="tool__why">Which models are in the map, which are out of date, and which are missing?</p>
+          <ul class="tool__what">
+            <li>Compares the map's layers with the model register and the deliverables tracker</li>
+            <li>Flags newer submissions not yet mapped and models the tracker does not know</li>
+            <li>Sits beside the model-vs-bill quantities in one page, with a portable single-file copy to share</li>
+          </ul>
+          <p class="tool__stack">Python · ArcGIS Pro · HTML dashboard</p>
+          <p class="tool__impact">The map and the models stay in step.</p>
+        </article>
+
+        <article class="tool reveal" data-kind="data">
+          <span class="tool__tag">AI · Assistant</span>
+          <h3>BIM management assistant</h3>
+          <p class="tool__why">A BIM manager's memory, research and first drafts, kept in one place.</p>
+          <ul class="tool__what">
+            <li>Keeps a searchable record of every review comment raised, so repeat issues surface at once</li>
+            <li>Answers questions from the requirements and execution-plan library, with clause references</li>
+            <li>Drafts meeting briefs, weekly reports and execution-plan change-impact notes</li>
+            <li>Drafts only: it never sends, uploads or issues anything; a person reviews and issues</li>
+          </ul>
+          <p class="tool__stack">Claude · Python · local files</p>
+          <p class="tool__impact">More time on judgement, less on looking things up.</p>
+        </article>
+
+        <article class="tool reveal" data-kind="data">
+          <span class="tool__tag">Data · Analytics</span>
+          <h3>Review-comment analytics</h3>
+          <p class="tool__why">Do design reviews actually change the design?</p>
+          <ul class="tool__what">
+            <li>Threads comments across resubmissions to follow each issue from first raise to close-out</li>
+            <li>Measures what was resolved, what repeats and where reviews add the most value</li>
+            <li>Turns the result into a chart report for leadership</li>
+          </ul>
+          <p class="tool__stack">Python · pandas · charts</p>
+          <p class="tool__impact">Review effort aimed where it pays back.</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
   <!-- ===================== TOOLBOX ===================== -->
-  <section class="section" id="toolbox">
+  <section class="section section--alt" id="toolbox">
     <div class="container">
       <p class="eyebrow reveal">Toolbox</p>
       <h2 class="reveal">Fluent in the full stack of digital construction</h2>
@@ -510,7 +654,7 @@
   </section>
 
   <!-- ===================== INSIGHTS ===================== -->
-  <section class="section section--alt" id="insights">
+  <section class="section" id="insights">
     <div class="container">
       <p class="eyebrow reveal">Insights</p>
       <h2 class="reveal">Field notes — coming soon</h2>
@@ -731,11 +875,11 @@
   </div>
 
   <script src="js/vendor/lenis.min.js"></script>
-  <script src="js/main.js?v=9"></script>
-  <script src="js/cinematic.js?v=9"></script>
-  <script src="js/leadform.js?v=9"></script>
-  <script src="js/privacy.js?v=9"></script>
-  <script src="js/programmes.js?v=9"></script>
-  <script type="module" src="js/showcase3d.js?v=9"></script>
+  <script src="js/main.js?v=10"></script>
+  <script src="js/cinematic.js?v=10"></script>
+  <script src="js/leadform.js?v=10"></script>
+  <script src="js/privacy.js?v=10"></script>
+  <script src="js/programmes.js?v=10"></script>
+  <script type="module" src="js/showcase3d.js?v=10"></script>
 </body>
 </html>
