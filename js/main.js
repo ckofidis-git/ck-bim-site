@@ -120,7 +120,7 @@ if (heroVisual && hero && !reducedMotion) {
   hero.addEventListener("mouseleave", () => { heroVisual.style.transform = ""; });
 }
 
-// --- Workshop filter (All / BIM / GIS / Data & AI) ---
+// --- Workshop filter (All / BIM / GIS / Data) ---
 (() => {
   const btns = document.querySelectorAll(".tool-filter__btn");
   const tools = document.querySelectorAll(".tool");

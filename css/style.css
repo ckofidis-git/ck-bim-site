@@ -668,27 +668,32 @@ h3 { font-size: 1.15rem; font-weight: 600; margin-bottom: 0.45em; }
 }
 .tool h3 { font-size: 1.18rem; margin-bottom: 8px; }
 .tool__why { color: var(--text); font-size: 0.93rem; margin-bottom: 12px; }
-.tool__what { list-style: none; color: var(--muted); font-size: 0.88rem; margin-bottom: 16px; }
-.tool__what li { position: relative; padding-left: 16px; margin-bottom: 6px; }
-.tool__what li::before {
-  content: "";
+.tool__how { list-style: none; counter-reset: step; color: var(--muted); font-size: 0.88rem; margin-bottom: 16px; }
+.tool__how li { position: relative; counter-increment: step; padding-left: 34px; margin-bottom: 10px; }
+.tool__how li::before {
+  content: counter(step);
   position: absolute;
   left: 0;
-  top: 0.62em;
-  width: 6px;
-  height: 6px;
-  border-radius: 2px;
-  background: var(--accent-2);
-}
-.tool__stack {
-  margin-top: auto;
+  top: 0.1em;
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  border: 1px solid rgba(129, 140, 248, 0.5);
+  color: var(--accent-2);
   font-family: var(--font-head);
-  font-size: 0.8rem;
-  color: var(--muted);
+  font-size: 0.75rem;
+  font-weight: 600;
+  line-height: 20px;
+  text-align: center;
+}
+.tool__how b { color: var(--text); font-weight: 600; }
+.tool__impact {
+  margin-top: auto;
+  font-size: 0.88rem;
+  color: var(--ok);
   border-top: 1px solid var(--panel-border);
   padding-top: 12px;
 }
-.tool__impact { font-size: 0.88rem; color: var(--ok); margin-top: 6px; }
 @media (max-width: 960px) { .tools { grid-template-columns: repeat(2, 1fr); } }
 @media (max-width: 640px) { .tools { grid-template-columns: 1fr; } }
 
