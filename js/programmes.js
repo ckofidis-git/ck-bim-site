@@ -71,11 +71,11 @@
         "Ran clash detection and multi-discipline coordination in Navisworks Manage, resolving conflicts through the design process.",
         "Performed cross-contract and as-built analysis, checking as-built profiles against design information and feeding discrepancies back to site and client.",
         "Used reality-capture / point-cloud workflows to bring site conditions into the engineering models.",
-        "Solved Revit→IFC user-defined-attribute export, unblocking an adjacent team to adopt a better-suited Revit toolchain.",
+        "Resolved the Revit-to-IFC export of user-defined attributes, unblocking an adjacent team to adopt a better-suited Revit toolchain.",
       ],
       achievements: [
         "Re-detailed and optimised a full quadrant of a major reinforced-concrete raft slab by ~50% to substantiate a standardisation concern — strengthening the team's position on construction-duration risk.",
-        "Removed a cross-discipline workflow blocker by cracking the Revit-to-IFC attribute export.",
+        "Removed a cross-discipline workflow blocker by resolving the Revit-to-IFC attribute export.",
         "Rated expert-level across Revit, Navisworks and Civil 3D; contributed to successful structural sign-off milestones.",
       ],
     },
